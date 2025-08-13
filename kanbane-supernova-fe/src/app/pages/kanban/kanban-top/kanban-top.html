@@ -1,8 +1,26 @@
-<div class="flex justify-content-center align-items-center gap-2">
-  <div>One</div>
-  <div>Two</div>
-
-  
-  <div>Three</div>
+<div class="logo flex flex-row align-items-center gap-2 w-fit h-auto px-3 py-2 border-round-md cursor-pointer" (click)="op.toggle($event)">
+  <span class="text-xl">KANBANE SUPERNOVA</span>
+  <p-button icon="pi pi-bars" [rounded]="true" [text]="true" />
 </div>
- 
+<p-popover #op class="logo">
+  <div class="logo flex flex-column gap-1 w-12rem h-auto">
+    <div class="flex justify-content-between align-items-center menu-item">
+      <span>Manage labels</span>
+    </div>
+    <div class="flex justify-content-between align-items-center menu-item">
+      <span>Manage columns</span>
+    </div>
+    <div class="divider"></div>
+    <div class="flex justify-content-between align-items-center menu-item">
+      <span>Export from JSON</span>
+    </div>
+    <div class="flex justify-content-between align-items-center menu-item">
+      <span>Import as JSON</span>
+    </div>
+    <div class="divider"></div>
+    <div class="flex justify-content-between align-items-center menu-item">
+      <label for="dark-mode-toggle" class="font-medium">Dark Mode</label>
+      <p-toggleswitch id="dark-mode-toggle" />
+    </div>
+  </div>
+</p-popover>

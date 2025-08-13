@@ -1,6 +1,7 @@
-@import "primeicons/primeicons.css";
-@import "primeflex/primeflex.css";
+@import 'primeicons/primeicons.css';
+@import 'primeflex/primeflex.css';
 
 * {
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
+  --p-popover-background: #262626;
 }
