@@ -1,9 +1,9 @@
-<div class="logo flex flex-row align-items-center gap-2 w-fit h-auto px-3 py-2 border-round-md cursor-pointer" (click)="op.toggle($event)">
+<div class="bg-color-custom flex flex-row align-items-center gap-2 w-fit h-auto px-3 py-2 border-round-md cursor-pointer" (click)="op.toggle($event)">
   <span class="text-xl">KANBANE SUPERNOVA</span>
   <p-button icon="pi pi-bars" [rounded]="true" [text]="true" />
 </div>
-<p-popover #op class="logo">
-  <div class="logo flex flex-column gap-1 w-12rem h-auto">
+<p-popover #op>
+  <div class="bg-color-custom flex flex-column gap-1 w-12rem h-auto">
     <div class="flex justify-content-between align-items-center menu-item">
       <span>Manage labels</span>
     </div>
