@@ -1,17 +1,29 @@
 <div class="flex flex-row align-items-center gap-3 w-fit h-auto mt-3 border-round-md">
-  <div class="bg-color-custom w-16rem h-20rem border-round-md" pDroppable (onDrop)="drop('start')">
+  <div class="bg-color-custom w-16rem h-20rem border-round-md" pDroppable (onDrop)="drop('first',first)">
+    @if(first){
     <ul class="list-none flex flex-col gap-2 p-0 m-0">
-      <li *ngFor="let product of availableProducts" class="p-2 rounded-border" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">{{product.name}}</li>
+      @for(product of first;track product){
+      <li class="p-2 rounded-border surface-500 text-black-alpha-90" pDraggable (onDragStart)="dragStart(product,first)" (onDragEnd)="dragEnd()">{{product.name}}</li>
+      }
     </ul>
+    }
   </div>
-  <div class="bg-color-custom w-16rem h-20rem border-round-md" pDroppable (onDrop)="drop('mid')">
-    <ul class="list-none flex flex-col gap-2 p-0 m-0" *ngIf="selectedProducts">
-      <li *ngFor="let product of selectedProducts" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()" class="p-2 rounded-border">{{product.name}}</li>
+  <div class="bg-color-custom w-16rem h-20rem border-round-md" pDroppable (onDrop)="drop('second',second)">
+    @if(second){
+    <ul class="list-none flex flex-col gap-2 p-0 m-0 surface-500 text-black-alpha-90">
+      @for(product of second;track product){
+      <li pDraggable (onDragStart)="dragStart(product,second)" (onDragEnd)="dragEnd()" class="p-2 rounded-border">{{product.name}}</li>
+      }
     </ul>
+    }
   </div>
-  <div class="bg-color-custom w-16rem h-20rem border-round-md" pDroppable (onDrop)="drop('finish')">
-    <ul class="list-none flex flex-col gap-2 p-0 m-0" *ngIf="boughtProducts">
-      <li *ngFor="let product of boughtProducts" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()" class="p-2 rounded-border">{{product.name}}</li>
+  <div class="bg-color-custom w-16rem h-20rem border-round-md" pDroppable (onDrop)="drop('third',third)">
+    @if(third){
+    <ul class="list-none flex flex-col gap-2 p-0 m-0 surface-500 text-black-alpha-90">
+      @for(product of third;track product){
+      <li pDraggable (onDragStart)="dragStart(product,third)" (onDragEnd)="dragEnd()" class="p-2 rounded-border">{{product.name}}</li>
+      }
     </ul>
+    }
   </div>
 </div>

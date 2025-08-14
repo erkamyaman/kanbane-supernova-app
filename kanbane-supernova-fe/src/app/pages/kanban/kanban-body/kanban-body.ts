@@ -1,82 +1,63 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { DragDropModule } from 'primeng/dragdrop';
 
 @Component({
   selector: 'app-kanban-body',
-  imports: [DragDropModule, NgFor, NgIf],
+  imports: [DragDropModule],
   templateUrl: './kanban-body.html',
   styleUrl: './kanban-body.scss',
 })
 export class KanbanBody {
+  first: any[] | undefined;
 
-  availableProducts: any[] | undefined;
+  second: any[] | undefined;
 
-  selectedProducts: any[] | undefined;
+  third: any[] | undefined;
 
-  boughtProducts: any[] | undefined;
-
+  chosenArray: any[] = [];
+  newChosenArray: any[] = [];
 
   draggedProduct: any | undefined | null;
 
   ngOnInit() {
-    this.selectedProducts = [];
-    this.availableProducts = [
-      { id: '1', name: 'Black Watch', way: 'left' },
-      { id: '2', name: 'Bamboo Watch', way: 'left' }
+    this.first = [
+      { id: '1', name: 'Black Watch', way: 'first' },
+      { id: '2', name: 'Bamboo Watch', way: 'first' }
     ]
-    this.boughtProducts = []
+    this.second = [];
+    this.third = []
   }
 
-  dragStart(product: any) {
+  dragStart(product: any, chosenArray: any) {
     this.draggedProduct = product;
+    this.chosenArray = chosenArray;
   }
 
-  drop(area: any) {
+  drop(area: any, newChosenArray: any) {
+    this.newChosenArray = newChosenArray;
+
+    this.handleDrop(this.chosenArray, this.newChosenArray, area)
+    this.newChosenArray = []
+    this.chosenArray = []
+    this.draggedProduct = null;
+  }
+
+  handleDrop(fromRef: any[], toRef: any[], newWay: string) {
     const p = this.draggedProduct;
-    if (!p) return;
 
-    const byId = (a: any, b: any) => (a?.id !== undefined && b?.id !== undefined) ? a.id !== b.id : a !== b;
+    const idx = fromRef.findIndex(item => item.id === p.id);
+    if (idx > -1) fromRef.splice(idx, 1);
 
-    if (p.way === 'left') {
-      this.availableProducts = (this.availableProducts ?? []).filter(item => byId(item, p));
-      if (area === 'mid') {
-        this.selectedProducts = [...(this.selectedProducts ?? []), { ...p, way: 'right' as const }];
-      } else if (area === 'finish') {
-        this.boughtProducts = [...(this.boughtProducts ?? []), { ...p, way: 'middle' as const }];
-      }
-    } else if (p.way === 'right') {
-      this.selectedProducts = (this.selectedProducts ?? []).filter(item => byId(item, p));
-      if (area === 'start') {
-        this.availableProducts = [...(this.availableProducts ?? []), { ...p, way: 'left' as const }];
-      } else {
-        this.boughtProducts = [...(this.boughtProducts ?? []), { ...p, way: 'middle' as const }];
-      }
-    } else if (p.way === 'middle') {
-      this.boughtProducts = (this.boughtProducts ?? []).filter(item => byId(item, p));
-      if (area === 'start') {
-        this.availableProducts = [...(this.availableProducts ?? []), { ...p, way: 'left' as const }];
-      } else if (area === 'mid') {
-        this.selectedProducts = [...(this.selectedProducts ?? []), { ...p, way: 'right' as const }];
-
-      }
-    }
+    toRef.push({ ...p, way: newWay });
 
     this.draggedProduct = null;
+
   }
 
   dragEnd() {
+    this.newChosenArray = []
+    this.chosenArray = []
     this.draggedProduct = null;
   }
 
-  findIndex(product: any) {
-    let index = -1;
-    for (let i = 0; i < (this.availableProducts as any[]).length; i++) {
-      if (product.id === (this.availableProducts as any[])[i].id) {
-        index = i;
-        break;
-      }
-    }
-    return index;
-  }
 }
