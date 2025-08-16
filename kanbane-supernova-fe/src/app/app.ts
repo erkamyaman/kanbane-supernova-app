@@ -4,7 +4,7 @@ import { Kanban } from './pages/kanban/kanban';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Kanban],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
