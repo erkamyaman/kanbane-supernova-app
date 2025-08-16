@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { PopoverModule } from 'primeng/popover';
 import { ButtonModule } from 'primeng/button';
+import { PopoverModule } from 'primeng/popover';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
-
 @Component({
-  selector: 'app-kanban-top',
+  selector: 'app-topbar',
   imports: [PopoverModule, ButtonModule, ToggleSwitchModule],
-  templateUrl: './kanban-top.html',
-  styleUrl: './kanban-top.scss',
+  templateUrl: './topbar.html',
+  styleUrl: './topbar.scss'
 })
-export class KanbanTop { }
+export class Topbar {
+
+}
