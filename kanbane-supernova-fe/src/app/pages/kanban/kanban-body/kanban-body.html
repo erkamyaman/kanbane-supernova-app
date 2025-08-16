@@ -4,7 +4,7 @@
     @if (col.items.length) {
     <ul class="list-none flex flex-col gap-2 p-0 m-0 flex flex-column">
       @for (item of col.items; track item.id) {
-      <li class="p-2 rounded-border surface-500 text-black-alpha-90" pDraggable (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">{{ item.name }}</li>
+      <li class="p-2 mx-2 mt-2 border-round surface-500 text-center text-black-alpha-90 cursor-pointer" pDraggable (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">{{ item.name }}</li>
       }
     </ul>
     }
