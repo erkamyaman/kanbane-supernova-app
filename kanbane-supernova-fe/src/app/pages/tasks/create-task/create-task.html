@@ -1,0 +1,20 @@
+<form class="flex flex-column gap-3" [formGroup]="form">
+  <div class="flex flex-column gap-1">
+    <label for="title" class="font-medium">Title</label>
+    <input id="title" type="text" pInputText placeholder="Enter task title" name="title" formControlName="title" class="w-full" />
+  </div>
+
+  <div class="flex flex-column gap-1">
+    <label for="definition" class="font-medium">Definition</label>
+    <textarea id="definition" rows="4" pInputTextarea placeholder="Enter task definition" name="definition" formControlName="definition" class="w-full" style="resize: none"></textarea>
+  </div>
+
+  <div class="flex flex-column gap-1">
+    <label for="link" class="font-medium">Link</label>
+    <input id="link" type="url" pInputText placeholder="Enter related link" name="link" formControlName="link" class="w-full" />
+  </div>
+
+  <div>
+    <button pButton type="button" label="Create Task" icon="pi pi-check" (click)="createTask()" class="w-full" [disabled]="form.invalid"></button>
+  </div>
+</form>
