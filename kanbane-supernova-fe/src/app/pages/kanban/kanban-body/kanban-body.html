@@ -1,6 +1,6 @@
 <div class="flex flex-row align-items-center gap-3 w-fit h-auto mt-3 border-round-md">
   @for (col of columns; track col.id) {
-  <div class="bg-color-custom w-16rem h-20rem border-round-md" pDroppable (onDrop)="drop(col.id)">
+  <div class="bg-color-custom w-16rem h-20rem border-round-md overflow-y-auto" pDroppable (onDrop)="drop(col.id)">
     @if (col.items.length) {
     <ul class="list-none flex flex-col gap-2 p-0 m-0 flex flex-column">
       @for (item of col.items; track item.id) {
