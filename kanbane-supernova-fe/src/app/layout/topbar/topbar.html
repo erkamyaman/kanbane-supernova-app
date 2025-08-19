@@ -1,12 +1,12 @@
 <div class="flex align-items-center gap-2">
-  <div class="bg-color-custom flex flex-row align-items-center gap-2 w-fit h-auto px-3 py-2 border-round-md cursor-pointer" (click)="op.toggle($event)">
-    <span class="text-base">KANBANE SUPERNOVA</span>
+  <div class="bg-color-custom flex border-round-md border-1 border-gray-500 flex-row align-items-center gap-2 w-fit h-auto px-3 py-2 border-round-md cursor-pointer" (click)="op.toggle($event)">
+    <span>KANBANE SUPERNOVA</span>
     <p-button icon="pi pi-bars" [rounded]="true" [text]="true" />
   </div>
   <p-button (onClick)="openCreateTaskDialog()" icon="pi pi-plus" [rounded]="true" [outlined]="true" />
 </div>
 <p-popover #op>
-  <div class="bg-color-custom flex flex-column gap-1 w-12rem h-auto">
+  <div class="flex flex-column gap-1 w-12rem h-auto">
     <div class="flex justify-content-between align-items-center menu-item">
       <span routerLink="backlog">Backlog</span>
     </div>

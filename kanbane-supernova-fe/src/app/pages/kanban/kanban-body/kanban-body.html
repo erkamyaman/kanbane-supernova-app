@@ -11,7 +11,7 @@
     @if (col.items.length) {
     <ul class="list-none flex flex-col gap-2 p-0 m-0 flex flex-column">
       @for (item of col.items; track item.id) {
-      <li class="p-2 mx-2 mb-2 h-4rem border-round-md border-1 border-gray-500 text-center text-white cursor-pointer flex align-items-center" style="position: relative" pDraggable (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">
+      <li class="p-2 mx-2 mb-2 h-4rem border-round-md border-1 border-gray-500 text-center cursor-pointer flex align-items-center" style="position: relative" pDraggable (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">
         <div class="flex flex-column align-items-start">
           <!-- <div>level</div> -->
           <span>{{ item.name }}</span>
