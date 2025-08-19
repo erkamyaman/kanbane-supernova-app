@@ -1,10 +1,20 @@
 <div class="flex flex-row align-items-center gap-2 w-fit h-auto mt-3 border-round-md">
   @for (col of columns; track col.id) {
-  <div style="height: 80vh" class="bg-color-custom w-21rem border-round-xl overflow-y-auto border-1 border-gray-500" pDroppable (onDrop)="drop(col.id)">
+  <div style="height: 80vh" class="bg-color-custom w-21rem border-round-md overflow-y-auto border-1 border-gray-500" pDroppable (onDrop)="drop(col.id)">
     @if (col.items.length) {
     <ul class="list-none flex flex-col gap-2 p-0 m-0 flex flex-column">
       @for (item of col.items; track item.id) {
-      <li class="p-2 mx-2 mt-2 border-round surface-500 text-center text-black-alpha-90 cursor-pointer" pDraggable (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">{{ item.name }}</li>
+      <li class="p-2 mx-2 mt-2 h-4rem border-round-md border-1 border-gray-500 text-center text-white cursor-pointer flex align-items-center" style="position: relative" pDraggable (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">
+        <div class="flex flex-column align-items-start">
+          <!-- <div>level</div> -->
+          <span>{{ item.name }}</span>
+          <!-- <div class="label-area flex">
+            <div class="label">label 1</div>
+            <div class="label">label 2</div>
+          </div> -->
+        </div>
+        <i class="pi pi-ellipsis-v text-primary-400" style="font-size: 0.75rem; position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%)"></i>
+      </li>
       }
     </ul>
     }
