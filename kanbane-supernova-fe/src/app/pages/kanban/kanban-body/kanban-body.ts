@@ -1,49 +1,57 @@
+import { NgClass, NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
 import { DragDropModule } from 'primeng/dragdrop';
 
-type Task = { id: string; name: string; columnId?: string, details?: any[] };
-type Column = { id: string; title: string; items: Task[] };
+type Task = { id: string; name: string; columnId?: string; details?: any[] };
+type Column = { id: string; title: string; icon: string; iconColor: string; items: Task[] };
 
 @Component({
   selector: 'app-kanban-body',
-  imports: [DragDropModule],
+  imports: [DragDropModule, NgClass, NgStyle],
   templateUrl: './kanban-body.html',
-  styleUrl: './kanban-body.scss',
+  styleUrl: './kanban-body.scss'
 })
 export class KanbanBody {
-  fromColId: string = ''
+  fromColId: string = '';
   draggedProduct: any | undefined | null;
 
   columns: Column[] = [
     {
       id: '1',
       title: 'First',
+      icon: 'pi-asterisk',
+      iconColor: '#FF6F61',
       items: [
         { id: 'p-001', name: 'Black Watch', columnId: '1' },
         { id: 'p-002', name: 'Bamboo Watch', columnId: '1' },
-        { id: 'p-003', name: 'Blue T-Shirt', columnId: '1' },
-      ],
+        { id: 'p-003', name: 'Blue T-Shirt', columnId: '1' }
+      ]
     },
     {
       id: '2',
       title: 'Second',
+      icon: 'pi-clock',
+      iconColor: '#4D96FF',
       items: [
         { id: 'p-101', name: 'Gaming Headset', columnId: '2' },
         { id: 'p-102', name: 'Office Chair', columnId: '2' },
-        { id: 'p-103', name: 'USB-C Hub', columnId: '2' },
-      ],
+        { id: 'p-103', name: 'USB-C Hub', columnId: '2' }
+      ]
     },
     {
       id: '3',
       title: 'Third',
+      icon: 'pi-crown',
+      iconColor: '#F5B700',
       items: [
         { id: 'p-201', name: 'Running Shoes', columnId: '3' },
         { id: 'p-202', name: 'Coffee Grinder', columnId: '3' },
-        { id: 'p-203', name: 'LED Desk Lamp', columnId: '3' },
-      ],
-    }]
+        { id: 'p-203', name: 'LED Desk Lamp', columnId: '3' }
+      ]
+    }
+  ];
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   dragStart(task: Task, fromColId: string) {
     this.draggedProduct = task;
@@ -53,14 +61,14 @@ export class KanbanBody {
   drop(toColId: string) {
     if (!this.draggedProduct || !this.fromColId) return;
 
-    const fromCol = this.columns.find(c => c.id === this.fromColId)!;
-    const toCol = this.columns.find(c => c.id === toColId)!;
+    const fromCol = this.columns.find((c) => c.id === this.fromColId)!;
+    const toCol = this.columns.find((c) => c.id === toColId)!;
 
     if (fromCol.id === toCol.id) {
-      return
+      return;
     }
 
-    const idx = fromCol.items.findIndex(i => i.id === this.draggedProduct!.id);
+    const idx = fromCol.items.findIndex((i) => i.id === this.draggedProduct!.id);
     if (idx > -1) fromCol.items.splice(idx, 1);
     toCol.items.push({ ...this.draggedProduct, columnId: toColId });
 
@@ -74,10 +82,8 @@ export class KanbanBody {
     this.fromColId = null as any;
   }
 
-
   dragEnd() {
     this.fromColId = null as any;
     this.draggedProduct = null;
   }
-
 }

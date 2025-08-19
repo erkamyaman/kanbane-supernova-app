@@ -1,0 +1,8 @@
+.dot-icon {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+li:hover .dot-icon {
+  opacity: 1;
+}

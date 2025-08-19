@@ -3,8 +3,15 @@
   <div style="height: 80vh" class="bg-color-custom w-21rem border-round-md overflow-y-auto border-1 border-gray-500" pDroppable (onDrop)="drop(col.id)">
     @if (col.items.length) {
     <ul class="list-none flex flex-col gap-2 p-0 m-0 flex flex-column">
+      <div class="flex flex-row mb-3 px-3 my-3 align-items-center justify-content-between">
+        <div class="flex flex-row gap-2 align-items-center justify-content-center">
+          <i [ngClass]="'pi ' + col.icon " [ngStyle]="{ 'font-size': '1.5rem', 'color': col.iconColor }"></i>
+          <div class="column-icon">{{col.title}}</div>
+        </div>
+        <i class="pi pi-ellipsis-v text-primary-400 cursor-pointer" style="font-size: 0.75rem"></i>
+      </div>
       @for (item of col.items; track item.id) {
-      <li class="p-2 mx-2 mt-2 h-4rem border-round-md border-1 border-gray-500 text-center text-white cursor-pointer flex align-items-center" style="position: relative" pDraggable (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">
+      <li class="p-2 mx-2 mb-2 h-4rem border-round-md border-1 border-gray-500 text-center text-white cursor-pointer flex align-items-center" style="position: relative" pDraggable (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">
         <div class="flex flex-column align-items-start">
           <!-- <div>level</div> -->
           <span>{{ item.name }}</span>
@@ -13,7 +20,7 @@
             <div class="label">label 2</div>
           </div> -->
         </div>
-        <i class="pi pi-ellipsis-v text-primary-400" style="font-size: 0.75rem; position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%)"></i>
+        <i class="dot-icon pi pi-ellipsis-v text-primary-400 cursor-pointer" style="font-size: 0.75rem; position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%)"></i>
       </li>
       }
     </ul>
