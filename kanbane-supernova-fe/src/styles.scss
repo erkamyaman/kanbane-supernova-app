@@ -45,6 +45,31 @@ body {
   background-color: var(--surface-0);
 }
 
+// Global toggle switch styles for better visibility
+.p-toggleswitch {
+  .p-toggleswitch-slider {
+    background-color: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  &.p-highlight .p-toggleswitch-slider {
+    background-color: var(--p-primary-color);
+    border-color: var(--p-primary-color);
+  }
+
+  .p-toggleswitch-handle {
+    background-color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+  }
+
+  &.p-highlight .p-toggleswitch-handle {
+    background-color: var(--text-primary);
+    border-color: var(--p-primary-color);
+  }
+}
+
 // Global dark mode styles
 .dark-mode {
   .p-component {
@@ -71,15 +96,31 @@ body {
       background-color: var(--card-bg);
       color: var(--text-primary);
     }
+
+    .p-popover-arrow {
+      background-color: var(--card-bg);
+      border-color: var(--border-color);
+    }
   }
 
   .p-toggleswitch {
     .p-toggleswitch-slider {
-      background-color: var(--bg-tertiary);
+      border: 2px solid var(--border-color);
     }
 
     &.p-highlight .p-toggleswitch-slider {
       background-color: var(--p-primary-color);
+      border-color: var(--p-primary-color);
+    }
+
+    .p-toggleswitch-handle {
+      background-color: var(--text-primary);
+      border: 2px solid var(--border-color);
+    }
+
+    &.p-highlight .p-toggleswitch-handle {
+      background-color: var(--text-primary);
+      border-color: var(--p-primary-color);
     }
   }
 
@@ -105,13 +146,40 @@ body {
     border-color: var(--border-color);
   }
 
+  .p-popover {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+
+    .p-popover-content {
+      background-color: var(--card-bg);
+      color: var(--text-primary);
+    }
+
+    .p-popover-arrow {
+      background-color: var(--card-bg);
+      border-color: var(--border-color);
+    }
+  }
+
   .p-toggleswitch {
     .p-toggleswitch-slider {
       background-color: var(--bg-tertiary);
+      border: 2px solid var(--border-color);
     }
 
     &.p-highlight .p-toggleswitch-slider {
       background-color: var(--p-primary-color);
+      border-color: var(--p-primary-color);
+    }
+
+    .p-toggleswitch-handle {
+      background-color: var(--text-primary);
+      border: 2px solid var(--border-color);
+    }
+
+    &.p-highlight .p-toggleswitch-handle {
+      background-color: var(--text-primary);
+      border-color: var(--p-primary-color);
     }
   }
 

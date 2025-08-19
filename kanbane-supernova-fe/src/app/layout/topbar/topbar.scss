@@ -3,10 +3,12 @@
   cursor: pointer;
   transition: background-color 0.15s ease;
   color: var(--text-primary);
-}
+  border-radius: 0.375rem;
+  margin: 0.125rem 0;
 
-.menu-item:hover {
-  background-color: var(--p-primary-color);
+  &:hover {
+    background-color: var(--hover-bg);
+  }
 }
 
 .menu-item span {
@@ -47,12 +49,17 @@
   color: #6c757d;
 }
 
-// Enhanced menu item styling
-.menu-item {
-  border-radius: 0.375rem;
-  margin: 0.125rem 0;
-
+// Disable hover for the entire theme toggle menu item
+.menu-item:has(p-toggleswitch),
+.menu-item .theme-toggle-item {
   &:hover {
-    background-color: var(--hover-bg);
+    background-color: transparent !important;
+  }
+}
+
+// Also target the specific menu item containing the toggle
+.menu-item:last-child {
+  &:hover {
+    background-color: transparent !important;
   }
 }
