@@ -1,3 +1,5 @@
 .wrapper {
   padding: 1rem;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }

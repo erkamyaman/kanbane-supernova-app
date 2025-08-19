@@ -1,10 +1,130 @@
 @import 'primeicons/primeicons.css';
 @import 'primeflex/primeflex.css';
 
+:root {
+  // Light theme variables
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --hover-bg: #f1f3f4;
+}
+
+.dark-mode {
+  // Dark theme variables
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #404040;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border-color: #404040;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --card-bg: #2d2d2d;
+  --input-bg: #404040;
+  --hover-bg: #3a3a3a;
+}
+
 * {
   font-family: 'JetBrains Mono', monospace;
 }
 
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
 .bg-color-custom {
   background-color: var(--surface-0);
+}
+
+// Global dark mode styles
+.dark-mode {
+  .p-component {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+
+  .p-button {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+
+    &:hover {
+      background-color: var(--hover-bg);
+    }
+  }
+
+  .p-popover {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+
+    .p-popover-content {
+      background-color: var(--card-bg);
+      color: var(--text-primary);
+    }
+  }
+
+  .p-toggleswitch {
+    .p-toggleswitch-slider {
+      background-color: var(--bg-tertiary);
+    }
+
+    &.p-highlight .p-toggleswitch-slider {
+      background-color: var(--p-primary-color);
+    }
+  }
+
+  // Additional dark mode styles for better contrast
+  input,
+  textarea,
+  select {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+
+    &::placeholder {
+      color: var(--text-secondary);
+    }
+  }
+}
+
+// Global light mode styles
+.light-mode {
+  .p-component {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+
+  .p-toggleswitch {
+    .p-toggleswitch-slider {
+      background-color: var(--bg-tertiary);
+    }
+
+    &.p-highlight .p-toggleswitch-slider {
+      background-color: var(--p-primary-color);
+    }
+  }
+
+  // Additional light mode styles
+  input,
+  textarea,
+  select {
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+
+    &::placeholder {
+      color: var(--text-secondary);
+    }
+  }
 }

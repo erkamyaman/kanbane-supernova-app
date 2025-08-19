@@ -26,8 +26,11 @@
     </div>
     <div class="divider"></div>
     <div class="flex justify-content-between align-items-center menu-item">
-      <label for="dark-mode-toggle" class="font-medium">Dark Mode</label>
-      <p-toggleswitch id="dark-mode-toggle" />
+      <div class="flex align-items-center gap-2">
+        <i class="pi" [class.pi-sun]="themeService.currentTheme() === 'light'" [class.pi-moon]="themeService.currentTheme() === 'dark'"></i>
+        <label for="dark-mode-toggle" class="font-medium">{{ themeService.currentTheme() === 'dark' ? 'Dark Mode' : 'Light Mode' }}</label>
+      </div>
+      <p-toggleswitch id="dark-mode-toggle" [ngModel]="themeService.currentTheme() === 'dark'" (onChange)="themeService.toggleTheme()" />
     </div>
   </div>
 </p-popover>
