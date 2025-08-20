@@ -9,10 +9,9 @@ type Column = { id: string; title: string; icon: string; iconColor: string; item
 
 @Component({
   selector: 'app-kanban-body',
-  imports: [DragDropModule, NgClass, NgStyle, Task],
+  imports: [DragDropModule, NgClass, NgStyle],
   templateUrl: './kanban-body.html',
-  styleUrl: './kanban-body.scss',
-  providers: [TaskService]
+  styleUrl: './kanban-body.scss'
 })
 export class KanbanBody {
   public taskService = inject(TaskService);
@@ -56,7 +55,7 @@ export class KanbanBody {
     }
   ];
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   dragStart(task: TaskType, fromColId: string) {
     this.draggedProduct = task;
@@ -93,8 +92,7 @@ export class KanbanBody {
   }
 
   showTaskDrawer(task: any) {
-    console.log(task);
-    this.taskService.selectTask(task);
-    this.taskService.openDrawer();
+    this.taskService.selectTask(task); // optional: set selected task
+    this.taskService.openDrawer(); // open the drawer
   }
 }

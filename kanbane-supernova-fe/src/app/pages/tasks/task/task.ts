@@ -1,18 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { TaskService } from './task-service';
 
 @Component({
   selector: 'app-task',
+  standalone: true,
   imports: [DrawerModule, ButtonModule],
   templateUrl: './task.html',
-  styleUrl: './task.scss',
-  providers: [TaskService]
+  styleUrl: './task.scss'
 })
 export class Task {
   public taskService = inject(TaskService);
-  drawerVisible = this.taskService.getTaskDrawerVisible();
+
+  drawerVisible = computed(() => this.taskService.getTaskDrawerVisible());
 
   onDrawerChange(value: boolean) {
     if (value) {
