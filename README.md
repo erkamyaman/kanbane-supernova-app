@@ -16,8 +16,8 @@ The name *Supernova* is a playful nod to *“Champagne Supernova”* 🌠.
 - 🟦 Clean TypeScript stack (NestJS API + Angular frontend)  
 
 ## 🛠️ Tech Stack
-- **Backend:** NestJS (TypeScript) ⚡  
-- **Frontend:** Angular (TypeScript) 🎨  
+- **Frontend:** Angular (TypeScript) 
+- **Backend:** NestJS (TypeScript) 
 
 ## 🚧 Status
 This project is **under active development** 🏗️ — features are evolving, and I’m adding improvements as I go.  
