@@ -13,8 +13,6 @@ import { TaskService } from './task-service';
 export class Task {
   public taskService = inject(TaskService);
 
-  drawerVisible = computed(() => this.taskService.getTaskDrawerVisible());
-
   onDrawerChange(value: boolean) {
     if (value) {
       this.taskService.openDrawer();
