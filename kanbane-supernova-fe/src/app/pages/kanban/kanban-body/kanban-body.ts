@@ -1,17 +1,22 @@
 import { NgClass, NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DragDropModule } from 'primeng/dragdrop';
+import { TaskService } from '../../tasks/task/task-service';
+import { Task } from '../../tasks/task/task';
 
-type Task = { id: string; name: string; columnId?: string; details?: any[] };
-type Column = { id: string; title: string; icon: string; iconColor: string; items: Task[] };
+type TaskType = { id: string; name: string; columnId?: string; details?: any[] };
+type Column = { id: string; title: string; icon: string; iconColor: string; items: TaskType[] };
 
 @Component({
   selector: 'app-kanban-body',
-  imports: [DragDropModule, NgClass, NgStyle],
+  imports: [DragDropModule, NgClass, NgStyle, Task],
   templateUrl: './kanban-body.html',
-  styleUrl: './kanban-body.scss'
+  styleUrl: './kanban-body.scss',
+  providers: [TaskService]
 })
 export class KanbanBody {
+  public taskService = inject(TaskService);
+
   fromColId: string = '';
   draggedProduct: any | undefined | null;
 
@@ -51,9 +56,9 @@ export class KanbanBody {
     }
   ];
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  dragStart(task: Task, fromColId: string) {
+  dragStart(task: TaskType, fromColId: string) {
     this.draggedProduct = task;
     this.fromColId = fromColId;
   }
@@ -85,5 +90,11 @@ export class KanbanBody {
   dragEnd() {
     this.fromColId = null as any;
     this.draggedProduct = null;
+  }
+
+  showTaskDrawer(task: any) {
+    console.log(task);
+    this.taskService.selectTask(task);
+    this.taskService.openDrawer();
   }
 }
