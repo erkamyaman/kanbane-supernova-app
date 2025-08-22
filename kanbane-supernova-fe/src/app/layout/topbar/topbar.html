@@ -7,21 +7,27 @@
 </div>
 <p-popover #op>
   <div class="flex flex-column gap-1 w-12rem h-auto">
-    <div class="flex justify-content-between align-items-center menu-item hovering">
-      <span routerLink="backlog">Backlog</span>
+    @if(currentRoute != '/backlog'){
+    <div class="flex justify-content-between align-items-center menu-item hovering" (click)="openTheOption('backlog')">
+      <span>Backlog</span>
     </div>
+    } @if(currentRoute != '/kanban'){
+    <div class="flex justify-content-between align-items-center menu-item hovering" (click)="openTheOption('kanban')">
+      <span>Kanban</span>
+    </div>
+    }
     <div class="divider"></div>
-    <div class="flex justify-content-between align-items-center menu-item">
+    <div class="flex justify-content-between align-items-center menu-item" (click)="openTheOption('labels')">
       <span>Manage labels</span>
     </div>
-    <div class="flex justify-content-between align-items-center menu-item">
+    <div class="flex justify-content-between align-items-center menu-item" (click)="openTheOption('columns')">
       <span>Manage columns</span>
     </div>
     <div class="divider"></div>
-    <div class="flex justify-content-between align-items-center menu-item">
+    <div class="flex justify-content-between align-items-center menu-item" (click)="openTheOption('exportJSON')">
       <span>Export from JSON</span>
     </div>
-    <div class="flex justify-content-between align-items-center menu-item">
+    <div class="flex justify-content-between align-items-center menu-item" (click)="openTheOption('importJSON')">
       <span>Import as JSON</span>
     </div>
     <div class="divider"></div>

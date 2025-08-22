@@ -10,7 +10,7 @@ export const routes: Routes = [
     component: Layout,
     children: [
       { path: '', redirectTo: 'kanban', pathMatch: 'full' },
-      { path: 'kanban', loadComponent: () => Kanban, title: 'Kanban' },
+      { path: 'kanban', loadComponent: () => Kanban, title: 'Kanbane Supernova' },
       { path: 'backlog', loadComponent: () => Backlog, title: 'Backlog' }
     ]
   },

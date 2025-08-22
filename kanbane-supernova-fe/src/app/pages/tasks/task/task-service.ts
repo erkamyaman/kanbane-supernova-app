@@ -25,5 +25,8 @@ export class TaskService {
 
   closeDrawer() {
     this.taskDrawerVisible.set(false);
+    setTimeout(() => {
+      //  this.removeTask();
+    }, 5000);
   }
 }

@@ -32,10 +32,10 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     providePrimeNG({
       theme: {
-        preset: MyPreset,
-        options: {
-          darkModeSelector: 'auto'
-        }
+        preset: MyPreset
+        // options: {
+        //   darkModeSelector: false || 'none'
+        // }
       }
     })
   ]
