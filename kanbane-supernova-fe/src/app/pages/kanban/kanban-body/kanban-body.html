@@ -20,7 +20,7 @@
             <div class="label">label 2</div>
           </div> -->
         </div>
-        <i class="dot-icon pi pi-ellipsis-v text-primary-400 cursor-pointer" style="font-size: 0.75rem; position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%)"></i>
+        <i class="dot-icon pi pi-trash text-primary-400 cursor-pointer" style="font-size: 1rem; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%)" (click)="deleteTask($event,task.id)"></i>
       </li>
       } }
     </ul>
@@ -28,3 +28,5 @@
   </div>
   }
 </div>
+
+<p-confirmDialog></p-confirmDialog>

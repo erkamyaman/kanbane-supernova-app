@@ -46,7 +46,15 @@ export class TasksService {
     return { success: false, message: `Task with id ${id} not found` };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  remove(id: string) {
+    const idx = this.tasks.findIndex((task) => task.id === id);
+
+    if (idx !== -1) {
+      const removed = this.tasks.splice(idx, 1)[0]; // actually removes it
+      return { success: true, task: removed };
+    }
+
+    return { success: false, task: null };
   }
+
 }

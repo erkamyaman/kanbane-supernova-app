@@ -16,6 +16,11 @@ export class KanbanService {
     return this.http.post<any>(`${environment.apiUrl}/tasks`, task);
   }
 
+  deleteTask(id: string) {
+    return this.http.delete<any>(`${environment.apiUrl}/tasks/${id}`);
+
+  }
+
   dropTask(id: string, data: any) {
     return this.http.patch<any>(`${environment.apiUrl}/tasks/${id}`, {
       data
