@@ -14,6 +14,7 @@ export type Column = { id: string; title: string; icon: string; iconColor: strin
   styleUrl: './kanban-body.scss'
 })
 export class KanbanBody {
+
   public taskService = inject(TaskService);
   public kanbanService = inject(KanbanService);
 
@@ -67,7 +68,7 @@ export class KanbanBody {
   }
 
   drop(toColId: string) {
-
+    console.log(this.draggedProduct)
     if (!this.draggedProduct || !this.fromColId) return;
 
     const fromCol = this.columns.find((c) => c.id === this.fromColId)!;
@@ -77,8 +78,17 @@ export class KanbanBody {
       return;
     }
 
-    const idx = this.tasks.findIndex((i) => i.columnId === this.draggedProduct!.columnId);
-    this.tasks[idx] = { ...this.tasks[idx], columnId: toColId };
+    const idx = this.tasks.findIndex((i) => i.id === this.draggedProduct!.id);
+    console.log(this.tasks[idx])
+    //this.tasks[idx] = { ...this.tasks[idx], columnId: toColId };
+
+    const updatedTask = { ...this.tasks[idx], columnId: toColId };
+    console.log(updatedTask)
+    this.kanbanService.dropTask(this.draggedProduct.id, updatedTask).subscribe({
+      next: () => {
+        this.getTasks();
+      }
+    })
 
     this.draggedProduct = null;
     this.fromColId = null as any;

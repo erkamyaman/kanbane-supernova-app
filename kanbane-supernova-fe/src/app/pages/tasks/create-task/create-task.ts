@@ -36,7 +36,6 @@ export class CreateTask {
   }
 
   createTask() {
-    console.log(this.form.getRawValue())
     const task = {
       name: this.form.getRawValue().name,
       columnId: this.form.getRawValue().column.id,

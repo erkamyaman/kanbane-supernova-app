@@ -16,6 +16,13 @@ export class KanbanService {
     return this.http.post<any>(`${environment.apiUrl}/tasks`, task);
   }
 
+  dropTask(id: string, data: any) {
+    return this.http.patch<any>(`${environment.apiUrl}/tasks/${id}`, {
+      data
+    });
+  }
+
+
   getColumns(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/columns`)
   }

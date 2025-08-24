@@ -36,8 +36,14 @@ export class TasksService {
     return `This action returns a #${id} task`;
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  update(id: string, updateTaskDto: UpdateTaskDto) {
+    console.log(updateTaskDto);
+    const idx = this.tasks.findIndex((task) => task.id === id);
+    if (idx > -1) {
+      this.tasks[idx] = { ...this.tasks[idx], ...updateTaskDto };
+      return { success: true, task: this.tasks[idx] };
+    }
+    return { success: false, message: `Task with id ${id} not found` };
   }
 
   remove(id: number) {
