@@ -8,10 +8,13 @@ import { CreateTask } from '../../pages/tasks/create-task/create-task';
 import { ThemeService } from '../../services/theme.service';
 import { FormsModule } from '@angular/forms';
 import { filter } from 'rxjs';
+import { KanbanService } from '../../services/kanban-service';
+import { Column } from '../../pages/kanban/kanban-body/kanban-body';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-topbar',
-  imports: [PopoverModule, ButtonModule, ToggleSwitchModule, DynamicDialogModule, FormsModule],
+  imports: [PopoverModule, ButtonModule, ToggleSwitchModule, DynamicDialogModule, FormsModule, SelectModule],
   templateUrl: './topbar.html',
   styleUrl: './topbar.scss',
   providers: [DialogService]
@@ -21,12 +24,15 @@ export class Topbar implements OnInit {
 
   dialogService = inject(DialogService);
   themeService = inject(ThemeService);
+  kanbanService = inject(KanbanService)
   private router = inject(Router);
-
   destroyRef = inject(DestroyRef);
 
   ref: DynamicDialogRef | undefined;
   currentRoute: string = '';
+
+  columns: Column[] = [];
+
 
   constructor() {
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
@@ -34,7 +40,22 @@ export class Topbar implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getColumns();
+  }
+
+  getColumns() {
+    this.kanbanService.getColumns().subscribe({
+      next: (data) => {
+        this.columns = data
+      }, error: (err) => {
+        console.log('Cols fetching error');
+
+      }, complete: () => {
+        console.log('Cols fetching completed');
+      }
+    })
+  }
 
   openCreateTaskDialog() {
     this.ref = this.dialogService.open(CreateTask, {

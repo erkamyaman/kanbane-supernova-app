@@ -5,6 +5,25 @@
   </div>
 
   <div class="flex flex-column gap-1">
+    <span class="font-medium">Column</span>
+    <p-select inputId="column" formControlName="column" [options]="columns" optionLabel="title" placeholder="Select a Column" class="w-full md:w-56">
+      <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex align-items-center gap-2">
+          <i [class]="'pi ' + selectedOption.icon" [ngStyle]="{ color: selectedOption.iconColor }"></i>
+          <div>{{ selectedOption.title }}</div>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="item" let-option>
+        <div class="flex align-items-center gap-2">
+          <i [class]="'pi ' + option.icon" [ngStyle]="{ color: option.iconColor }"></i>
+          <div>{{ option.title }}</div>
+        </div>
+      </ng-template>
+    </p-select>
+  </div>
+
+  <div class="flex flex-column gap-1">
     <label for="definition" class="font-medium">Definition</label>
     <textarea id="definition" rows="4" pInputTextarea placeholder="Enter task definition" name="definition" formControlName="definition" class="w-full" style="resize: none"></textarea>
   </div>

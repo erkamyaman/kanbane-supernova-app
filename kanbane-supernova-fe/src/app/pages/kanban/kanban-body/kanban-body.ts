@@ -2,10 +2,10 @@ import { NgClass, NgStyle } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DragDropModule } from 'primeng/dragdrop';
 import { TaskService } from '../../tasks/task/task-service';
-import { KanbanService } from '../kanban-service';
+import { KanbanService } from '../../../services/kanban-service';
 
-type Task = { id: string; name: string; columnId?: string; details?: any[] };
-type Column = { id: string; title: string; icon: string; iconColor: string; items: Task[] };
+export type Task = { id: string; name: string; columnId?: string; details?: any[] };
+export type Column = { id: string; title: string; icon: string; iconColor: string; };
 
 @Component({
   selector: 'app-kanban-body',
