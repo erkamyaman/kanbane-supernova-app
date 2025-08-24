@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { DragDropModule } from 'primeng/dragdrop';
 import { TaskService } from '../../tasks/task/task-service';
 import { Task } from '../../tasks/task/task';
+import { KanbanService } from '../kanban-service';
 
 type TaskType = { id: string; name: string; columnId?: string; details?: any[] };
 type Column = { id: string; title: string; icon: string; iconColor: string; items: TaskType[] };
@@ -15,47 +16,26 @@ type Column = { id: string; title: string; icon: string; iconColor: string; item
 })
 export class KanbanBody {
   public taskService = inject(TaskService);
+  public kanbanService = inject(KanbanService);
 
   fromColId: string = '';
   draggedProduct: any | undefined | null;
 
-  columns: Column[] = [
-    {
-      id: '1',
-      title: 'First',
-      icon: 'pi-asterisk',
-      iconColor: '#FF6F61',
-      items: [
-        { id: 'p-001', name: 'Black Watch', columnId: '1' },
-        { id: 'p-002', name: 'Bamboo Watch', columnId: '1' },
-        { id: 'p-003', name: 'Blue T-Shirt', columnId: '1' }
-      ]
-    },
-    {
-      id: '2',
-      title: 'Second',
-      icon: 'pi-clock',
-      iconColor: '#4D96FF',
-      items: [
-        { id: 'p-101', name: 'Gaming Headset', columnId: '2' },
-        { id: 'p-102', name: 'Office Chair', columnId: '2' },
-        { id: 'p-103', name: 'USB-C Hub', columnId: '2' }
-      ]
-    },
-    {
-      id: '3',
-      title: 'Third',
-      icon: 'pi-crown',
-      iconColor: '#F5B700',
-      items: [
-        { id: 'p-201', name: 'Running Shoes', columnId: '3' },
-        { id: 'p-202', name: 'Coffee Grinder', columnId: '3' },
-        { id: 'p-203', name: 'LED Desk Lamp', columnId: '3' }
-      ]
-    }
-  ];
+  columns: Column[] = []
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.kanbanService.getTasks().subscribe({
+      next: (data) => {
+        this.columns = data;
+      },
+      error: (err) => {
+        console.error('Error fetching tasks:', err);
+      },
+      complete: () => {
+        console.log('Task fetching completed');
+      }
+    })
+  }
 
   dragStart(task: TaskType, fromColId: string) {
     this.draggedProduct = task;

@@ -31,7 +31,6 @@ export class Topbar implements OnInit {
   constructor() {
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
       this.currentRoute = this.router.url;
-      console.log(this.currentRoute);
     });
   }
 
