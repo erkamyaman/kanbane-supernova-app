@@ -28,15 +28,27 @@ export class CreateTask {
     this.getColumns();
 
     this.form = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5)]],
-      column: ['', Validators.required],
-      definition: ['', [Validators.required, Validators.minLength(100)]],
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      column: [null, Validators.required],
+      definition: ['', [Validators.required, Validators.minLength(50)]],
       link: ['']
     });
   }
 
   createTask() {
-    this.ref.close({ FormData: this.form.getRawValue() });
+    console.log(this.form.getRawValue())
+    const task = {
+      name: this.form.getRawValue().name,
+      columnId: this.form.getRawValue().column.id,
+      definition: this.form.getRawValue().definition,
+      link: this.form.getRawValue().link,
+    }
+    this.kanbanService.createTask(task).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.ref.close({ FormData: this.form.getRawValue() });
+      }
+    })
   }
 
   getColumns() {

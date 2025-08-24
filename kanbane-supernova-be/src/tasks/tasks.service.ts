@@ -17,7 +17,15 @@ export class TasksService {
   ];
 
   create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+    const newTask = {
+      id: `p-${Math.floor(Math.random() * 10000)}`,
+      name: createTaskDto.name,
+      definition: createTaskDto.definition,
+      columnId: createTaskDto.columnId
+    };
+
+    this.tasks.push(newTask);
+    return this.tasks;
   }
 
   findAll() {

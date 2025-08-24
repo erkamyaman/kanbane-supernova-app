@@ -3,9 +3,11 @@ import { MinLength, IsOptional, IsUrl } from 'class-validator';
 
 export class CreateTaskDto {
   @MinLength(5)
-  title: string;
+  name: string;
 
-  @MinLength(100)
+  columnId: string;
+
+  @MinLength(50)
   definition: string;
 
   @IsOptional()
@@ -13,4 +15,3 @@ export class CreateTaskDto {
   link?: string;
 }
 
-// { id: 'p-001', name: 'Black Watch', columnId: '1' },
