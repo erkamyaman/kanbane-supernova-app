@@ -11,4 +11,8 @@ export class KanbanService {
   getTasks(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/tasks`);
   }
+
+  getColumns(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/columns`)
+  }
 }

@@ -8,13 +8,13 @@
       </div>
       <i class="pi pi-ellipsis-v text-primary-400 cursor-pointer" style="font-size: 0.75rem"></i>
     </div>
-    @if (col.items.length) {
+    @if (tasks.length) {
     <ul class="list-none flex flex-col gap-2 p-0 m-0 flex flex-column">
-      @for (item of col.items; track item.id) {
-      <li class="p-2 mx-2 mb-2 h-4rem border-round-md border-1 border-gray-500 text-center cursor-pointer flex align-items-center" style="position: relative" pDraggable (click)="showTaskDrawer(item)" (onDragStart)="dragStart(item, col.id)" (onDragEnd)="dragEnd()">
+      @for (task of tasks; track task.id) { @if(task.columnId === col.id){
+      <li class="p-2 mx-2 mb-2 h-4rem border-round-md border-1 border-gray-500 text-center cursor-pointer flex align-items-center" style="position: relative" pDraggable (click)="showTaskDrawer(task)" (onDragStart)="dragStart(task, col.id)" (onDragEnd)="dragEnd()">
         <div class="flex flex-column align-items-start">
           <!-- <div>level</div> -->
-          <span>{{ item.name }}</span>
+          <span>{{ task.name }}</span>
           <!-- <div class="label-area flex">
             <div class="label">label 1</div>
             <div class="label">label 2</div>
@@ -22,7 +22,7 @@
         </div>
         <i class="dot-icon pi pi-ellipsis-v text-primary-400 cursor-pointer" style="font-size: 0.75rem; position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%)"></i>
       </li>
-      }
+      } }
     </ul>
     }
   </div>
