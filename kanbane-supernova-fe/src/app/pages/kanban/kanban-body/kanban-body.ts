@@ -82,7 +82,6 @@ export class KanbanBody {
 
     const idx = this.tasks.findIndex((i) => i.id === this.draggedProduct!.id);
     console.log(this.tasks[idx])
-    //this.tasks[idx] = { ...this.tasks[idx], columnId: toColId };
 
     const updatedTask = { ...this.tasks[idx], columnId: toColId };
     console.log(updatedTask)
