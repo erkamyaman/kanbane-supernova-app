@@ -13,3 +13,19 @@ li:hover .dot-icon {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE/Edge */
 }
+
+.task-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 80px; /* pick a size you like: 64/72/80px */
+  overflow: hidden; /* ensure nothing bleeds outside */
+}
+
+/* keep the title from creating extra lines */
+.task-title {
+  max-width: calc(100% - 3rem); /* leaves room for the trash icon */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
