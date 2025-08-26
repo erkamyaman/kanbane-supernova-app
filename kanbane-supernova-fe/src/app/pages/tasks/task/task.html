@@ -1,6 +1,26 @@
-@if(taskService.getSelectedTask()){
-<p-drawer [header]="taskService.getSelectedTask().name" [visible]="taskService.getTaskDrawerVisible()" (visibleChange)="onDrawerChange($event)" position="right" [style]="{ width: '30%' }">
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</p-drawer>
+@if (taskService.getSelectedTask(); as task) {
+<p-drawer [header]="task.name" [visible]="taskService.getTaskDrawerVisible()" (visibleChange)="onDrawerChange($event)" position="right" [style]="{ width: '30%' }">
+  <div class="p-3 flex flex-column gap-3 border-bottom-2">
+    <!-- Meta info -->
+    <div class="flex flex-column gap-1">
+      <span class="text-500 text-sm mt-3">Column</span>
+      <span class="font-medium">{{ task.columnId }}</span>
 
+      <span class="text-500 text-sm mt-3">Link</span>
+      <a [href]="task.link" target="_blank" rel="noopener" class="font-medium text-primary hover:underline">Open guide</a>
+    </div>
+
+    <!-- Editable definition -->
+    <div class="flex flex-column gap-2">
+      <label class="text-500 text-sm">Definition</label>
+      <textarea pInputTextarea [(ngModel)]="task.definition" resize="vertical" rows="5" class="w-full" style="max-height: 15rem" placeholder="Describe the task..."></textarea>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex justify-content-end gap-2 mt-2">
+      <button pButton type="button" label="Reset" class="p-button-text"></button>
+      <button pButton type="button" label="Save" icon="pi pi-check"></button>
+    </div>
+  </div>
+</p-drawer>
 }

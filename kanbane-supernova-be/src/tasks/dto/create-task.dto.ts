@@ -12,6 +12,6 @@ export class CreateTaskDto {
 
   @IsOptional()
   @IsUrl()
-  link?: string;
+  link: string;
 }
 
