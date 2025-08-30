@@ -11,6 +11,7 @@ import { filter } from 'rxjs';
 import { KanbanService } from '../../services/kanban-service';
 import { Column } from '../../pages/kanban/kanban-body/kanban-body';
 import { SelectModule } from 'primeng/select';
+import { Labels } from '../../pages/labels/labels';
 
 @Component({
   selector: 'app-topbar',
@@ -73,6 +74,22 @@ export class Topbar implements OnInit {
     });
   }
 
+  openLabelsDialog() {
+    this.ref = this.dialogService.open(Labels, {
+      header: 'Labels',
+      width: '600px',
+      modal: true,
+      closable: true,
+      draggable: true
+    });
+
+    this.ref.onClose.subscribe((result) => {
+      if (result) {
+        console.log('Dialog closed with:', result);
+      }
+    });
+  }
+
   openTheOption(operation: string) {
     switch (operation) {
       case 'kanban':
@@ -82,7 +99,7 @@ export class Topbar implements OnInit {
         this.router.navigate(['/backlog']);
         break;
       case 'labels':
-        //this.router.navigate(['/backlog']);
+        this.openLabelsDialog();
         break;
       case 'columns':
         //this.router.navigate(['/backlog']);

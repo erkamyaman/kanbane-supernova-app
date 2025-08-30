@@ -1,1 +1,21 @@
-<p>labels works!</p>
+<div class="labels-container py-2">
+  @if (isLoading) {
+  <div class="loading">
+    <p>Loading labels...</p>
+  </div>
+  } @if (!isLoading && labels.length === 0) {
+  <div class="no-labels">
+    <p>No labels found.</p>
+  </div>
+  } @if (!isLoading && labels.length > 0) {
+  <div class="flex flex-wrap gap-2">
+    @for (label of labels; track label.value) {
+    <div class="label-tag" [style]="{'background-color': label.color}">
+      <i [class]="label.icon" class="text-sm"></i>
+      <span class="text-sm font-medium">{{ label.label }}</span>
+      <button pButton type="button" icon="pi pi-times" class="p-button-sm p-button-danger p-button-rounded delete-btn" (click)="deleteLabelConfirmation($event, label.id)"></button>
+    </div>
+    }
+  </div>
+  }
+</div>
