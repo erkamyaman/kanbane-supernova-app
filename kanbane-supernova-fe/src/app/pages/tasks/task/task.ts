@@ -8,6 +8,8 @@ import { MultiSelect } from 'primeng/multiselect';
 import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
+import { LabelOption } from '../../labels/labels';
+import { LabelService } from '../../../services/label.service';
 
 export interface Task {
   id: string;
@@ -20,12 +22,7 @@ export interface Task {
   labels?: string[];
 }
 
-export interface LabelOption {
-  label: string;
-  value: string;
-  color: string;
-  icon: string;
-}
+
 
 @Component({
   selector: 'app-task',
@@ -35,25 +32,19 @@ export interface LabelOption {
   styleUrl: './task.scss'
 })
 export class Task implements OnInit {
-  ngOnInit(): void {
-    //
-  }
   public taskService = inject(TaskService);
-  public newLink: string = '';
+  public labelService = inject(LabelService);
 
-  availableLabels: LabelOption[] = [
-    { label: 'JavaScript', value: 'javascript', color: '#f7df1e', icon: 'pi pi-code' },
-    { label: 'TypeScript', value: 'typescript', color: '#3178c6', icon: 'pi pi-code' },
-    { label: 'Angular', value: 'angular', color: '#dd0031', icon: 'pi pi-cog' },
-    { label: 'Backend', value: 'backend', color: '#68217a', icon: 'pi pi-server' },
-    { label: 'Frontend', value: 'frontend', color: '#61dafb', icon: 'pi pi-desktop' },
-    { label: 'Database', value: 'database', color: '#336791', icon: 'pi pi-database' },
-    { label: 'Design', value: 'design', color: '#ff7c43', icon: 'pi pi-palette' },
-    { label: 'Testing', value: 'testing', color: '#25c2a0', icon: 'pi pi-check-circle' },
-    { label: 'Urgent', value: 'urgent', color: '#e74c3c', icon: 'pi pi-exclamation-triangle' },
-    { label: 'Easy', value: 'easy', color: '#2ecc71', icon: 'pi pi-thumbs-up' },
-    { label: 'Hard', value: 'hard', color: '#e67e22', icon: 'pi pi-star' }
-  ];
+  newLink: string = '';
+  availableLabels: LabelOption[] = []
+
+  ngOnInit(): void {
+    this.labelService.getLabels().subscribe((data: any) => {
+      this.availableLabels = data;
+    });
+  }
+
+
 
   get task(): Task {
     console.log('s')
