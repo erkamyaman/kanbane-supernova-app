@@ -1,9 +1,9 @@
 @if (taskService.getSelectedTask(); as task) {
 <p-drawer [header]="task.name" [visible]="taskService.getTaskDrawerVisible()" (visibleChange)="onDrawerChange($event)" position="right" [style]="{ width: '30%' }">
-  <div class="p-3 flex flex-column gap-3">
+  <div class="flex flex-column gap-4">
     <div class="flex flex-row gap-4">
       <div class="flex flex-column gap-1">
-        <span class="text-500 text-sm mt-3 flex align-items-center">
+        <span class="text-500 text-sm flex align-items-center mb-1">
           <i class="pi pi-flag mr-1"></i>
           Status
         </span>
@@ -11,7 +11,7 @@
       </div>
 
       <div class="flex flex-column gap-1">
-        <span class="text-500 text-sm mt-3 flex align-items-center">
+        <span class="text-500 text-sm flex align-items-center mb-1">
           <i class="pi pi-clock mr-1"></i>
           Started
         </span>
@@ -25,7 +25,7 @@
 
     @if (task.labels && task.labels.length > 0) {
     <div class="flex flex-column gap-1">
-      <span class="text-500 text-sm mt-3 flex align-items-center">
+      <span class="text-500 text-sm flex align-items-center mb-1">
         <i class="pi pi-tags mr-1"></i>
         Labels
       </span>
@@ -43,23 +43,23 @@
     }
 
     <div class="flex flex-column gap-2">
-      <label class="text-500 text-sm flex align-items-center">
+      <label class="text-500 text-sm flex align-items-center mb-1">
         <i class="pi pi-file-edit mr-1"></i>
         Definition
       </label>
-      <textarea pInputTextarea [(ngModel)]="task.definition" resize="vertical" rows="4" class="w-full"></textarea>
+      <textarea pInputTextarea [(ngModel)]="task.definition" resize="vertical" rows="5" class="w-full max-h-14rem" style="min-height: calc(5 * 1.6rem)"></textarea>
     </div>
 
-    <div class="flex flex-column gap-2 mt-3">
-      <label class="text-500 text-sm flex align-items-center">
+    <div class="flex flex-column gap-2">
+      <label class="text-500 text-sm flex align-items-center mb-1">
         <i class="pi pi-book mr-1"></i>
         Notes
       </label>
-      <textarea pInputTextarea [(ngModel)]="task.notes" resize="vertical" rows="6" placeholder="Add your learning notes, insights, and progress here..." class="w-full"></textarea>
+      <textarea pInputTextarea [(ngModel)]="task.notes" resize="vertical" rows="5" placeholder="Add your learning notes, insights, and progress here..." class="w-full max-h-14rem" style="min-height: calc(5 * 1.6rem)"></textarea>
     </div>
 
-    <div class="flex flex-column gap-2 mt-3">
-      <label class="text-500 text-sm flex align-items-center">
+    <div class="flex flex-column gap-2">
+      <label class="text-500 text-sm flex align-items-center mb-1">
         <i class="pi pi-tag mr-1"></i>
         Labels
       </label>
@@ -74,7 +74,7 @@
     </div>
 
     <div class="flex flex-column gap-2">
-      <label class="text-500 text-sm flex align-items-center">
+      <label class="text-500 text-sm flex align-items-center mb-1">
         <i class="pi pi-link mr-1"></i>
         Links
       </label>
@@ -83,7 +83,7 @@
       <div class="flex flex-column gap-2">
         @for (link of task.links; track $index; let i = $index) {
         <div class="flex align-items-center gap-2 p-2 border-1 border-300 border-round">
-          <a [href]="link" target="_blank" rel="noopener" class="font-medium text-primary flex-1 text-overflow-ellipsis overflow-hidden white-space-nowrap">{{ link }}</a>
+          <a [href]="link" target="_blank" rel="noopener" class="font-medium flex-1 text-overflow-ellipsis overflow-hidden white-space-nowrap" style="text-decoration: none; color: inherit">{{ link }}</a>
           <button pButton type="button" icon="pi pi-times" class="p-button-text p-button-sm p-button-danger" (click)="removeLink(i)"></button>
         </div>
         }
@@ -94,10 +94,6 @@
         <input type="url" pInputText [(ngModel)]="newLink" placeholder="Enter URL..." class="flex-1" (keyup.enter)="addLink()" />
         <button pButton type="button" icon="pi pi-plus" label="Add" class="p-button-sm" (click)="addLink()" [disabled]="!newLink || !isValidUrl(newLink)"></button>
       </div>
-    </div>
-
-    <div class="flex justify-content-end gap-2 mt-4">
-      <button pButton type="button" label="Close" class="p-button-text"></button>
     </div>
   </div>
 </p-drawer>
