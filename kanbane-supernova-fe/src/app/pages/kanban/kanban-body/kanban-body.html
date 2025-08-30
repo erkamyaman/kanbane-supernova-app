@@ -11,17 +11,19 @@
     @if (tasks.length) {
     <ul class="list-none flex flex-column gap-2 p-0 m-0 pb-4 overflow-y-auto align-items-start">
       @for (task of tasks; track $index) { @if(task.columnId === col.id){
-      <li class="p-2 mx-3 mb-2 border-round-md border-1 border-gray-500 text-center cursor-pointer flex align-items-center" style="position: relative; height: 100px; min-height: 100px; max-height: 100px; width: 19rem; min-width: 19rem; max-width: 19rem" pDraggable (click)="showTaskDrawer(task)" (onDragStart)="dragStart(task, col.id)" (onDragEnd)="dragEnd()">
-        <div class="flex flex-column align-items-start justify-content-start">
+      <li class="p-2 mx-3 mb-2 border-round-md border-1 border-gray-500 text-center cursor-pointer flex align-items-start" style="position: relative; height: 100px; min-height: 100px; max-height: 100px; width: 19rem; min-width: 19rem; max-width: 19rem" pDraggable (click)="showTaskDrawer(task)" (onDragStart)="dragStart(task, col.id)" (onDragEnd)="dragEnd()">
+        <div class="flex flex-column align-items-start justify-content-start h-full text-left w-full">
           <!-- <div>level</div> -->
-          <span>{{ task.name }}</span>
+          <span class="text-sm m-0 p-0">{{ task.name.length > 30 ? (task.name.slice(0, 30).trim() + '...') : task.name }}</span>
           <!-- <div class="label-area flex">
-            <div class="label">label 1</div>
-            <div class="label">label 2</div>
-          </div> -->
+      <div class="label">label 1</div>
+      <div class="label">label 2</div>
+    </div> -->
         </div>
+
         <i class="dot-icon pi pi-trash text-primary-400 cursor-pointer" style="font-size: 1rem; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%)" (click)="deleteTask($event,task.id)"></i>
       </li>
+
       } }
     </ul>
     }
