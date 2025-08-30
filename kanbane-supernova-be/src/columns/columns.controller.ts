@@ -23,7 +23,7 @@ export class ColumnsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body('data') updateColumnDto: UpdateColumnDto) {
+  update(@Param('id') id: string, @Body() updateColumnDto: UpdateColumnDto) {
     return this.columnsService.update(id, updateColumnDto);
   }
 

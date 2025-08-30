@@ -33,7 +33,7 @@ export class ColumnsService {
       iconColor: createColumnDto.iconColor || '#000000'
     };
     this.columns.push(newColumn);
-    return this.columns;
+    return newColumn;
   }
 
   findAll() {
@@ -48,9 +48,9 @@ export class ColumnsService {
     const idx = this.columns.findIndex((column) => column.id === id);
     if (idx > -1) {
       this.columns[idx] = { ...this.columns[idx], ...updateColumnDto };
-      return { success: true, column: this.columns[idx] };
+      return this.columns[idx];
     }
-    return { success: false, message: `Column with id ${id} not found` };
+    return null;
   }
 
   remove(id: string) {
@@ -58,9 +58,9 @@ export class ColumnsService {
 
     if (idx !== -1) {
       const removed = this.columns.splice(idx, 1)[0];
-      return { success: true, column: removed };
+      return removed;
     }
 
-    return { success: false, column: null };
+    return null;
   }
 }

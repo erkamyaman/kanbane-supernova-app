@@ -1,0 +1,28 @@
+.columns-container {
+  .create-form {
+    background-color: var(--surface-card);
+  }
+
+  .column-item {
+    background-color: var(--surface-card);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: var(--surface-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .loading,
+  .no-columns {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-color-secondary);
+  }
+
+  h3 {
+    margin: 0;
+    color: var(--text-color);
+  }
+}

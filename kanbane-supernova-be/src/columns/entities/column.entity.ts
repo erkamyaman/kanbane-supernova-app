@@ -1,1 +1,6 @@
-export class Column {}
+export class Column {
+    id: string;
+    title: string;
+    icon: string;
+    iconColor: string;
+}

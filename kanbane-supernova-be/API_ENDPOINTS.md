@@ -3,6 +3,7 @@
 This document describes all available API endpoints for the Kanbane Supernova backend application.
 
 ## Base URL
+
 ```
 http://localhost:3004
 ```
@@ -10,9 +11,12 @@ http://localhost:3004
 ## Tasks Endpoints
 
 ### GET /tasks
+
 Retrieve all tasks
+
 - **Response**: Array of task objects
 - **Example Response**:
+
 ```json
 [
   {
@@ -26,13 +30,18 @@ Retrieve all tasks
 ```
 
 ### GET /tasks/:id
+
 Retrieve a specific task by ID
+
 - **Parameters**: `id` (string) - Task ID
 - **Response**: Task object or error message
 
 ### POST /tasks
+
 Create a new task
+
 - **Body**:
+
 ```json
 {
   "name": "Task Name",
@@ -41,12 +50,16 @@ Create a new task
   "links": ["https://example.com"]
 }
 ```
+
 - **Response**: Updated array of all tasks
 
 ### PATCH /tasks/:id
+
 Update a task
+
 - **Parameters**: `id` (string) - Task ID
-- **Body**: 
+- **Body**:
+
 ```json
 {
   "data": {
@@ -55,19 +68,25 @@ Update a task
   }
 }
 ```
+
 - **Response**: Success status and updated task
 
 ### DELETE /tasks/:id
+
 Delete a task
+
 - **Parameters**: `id` (string) - Task ID
 - **Response**: Success status and deleted task
 
 ## Columns Endpoints
 
 ### GET /columns
+
 Retrieve all columns
+
 - **Response**: Array of column objects
 - **Example Response**:
+
 ```json
 [
   {
@@ -80,13 +99,18 @@ Retrieve all columns
 ```
 
 ### GET /columns/:id
+
 Retrieve a specific column by ID
+
 - **Parameters**: `id` (string) - Column ID
 - **Response**: Column object or error message
 
 ### POST /columns
+
 Create a new column
+
 - **Body**:
+
 ```json
 {
   "title": "Column Title",
@@ -94,33 +118,41 @@ Create a new column
   "iconColor": "#000000"
 }
 ```
-- **Response**: Updated array of all columns
+
+- **Response**: Created column object
 
 ### PATCH /columns/:id
+
 Update a column
+
 - **Parameters**: `id` (string) - Column ID
 - **Body**:
+
 ```json
 {
-  "data": {
-    "title": "Updated Title",
-    "iconColor": "#ffffff"
-  }
+  "title": "Updated Title",
+  "iconColor": "#ffffff"
 }
 ```
-- **Response**: Success status and updated column
+
+- **Response**: Updated column object
 
 ### DELETE /columns/:id
+
 Delete a column
+
 - **Parameters**: `id` (string) - Column ID
 - **Response**: Success status and deleted column
 
 ## Labels Endpoints
 
 ### GET /labels
+
 Retrieve all labels
+
 - **Response**: Array of label objects
 - **Example Response**:
+
 ```json
 [
   {
@@ -134,13 +166,18 @@ Retrieve all labels
 ```
 
 ### GET /labels/:id
+
 Retrieve a specific label by ID
+
 - **Parameters**: `id` (string) - Label ID
 - **Response**: Label object or error message
 
 ### POST /labels
+
 Create a new label
+
 - **Body**:
+
 ```json
 {
   "label": "Label Name",
@@ -149,12 +186,16 @@ Create a new label
   "icon": "pi pi-tag"
 }
 ```
+
 - **Response**: Updated array of all labels
 
 ### PATCH /labels/:id
+
 Update a label
+
 - **Parameters**: `id` (string) - Label ID
 - **Body**:
+
 ```json
 {
   "data": {
@@ -163,10 +204,13 @@ Update a label
   }
 }
 ```
+
 - **Response**: Success status and updated label
 
 ### DELETE /labels/:id
+
 Delete a label
+
 - **Parameters**: `id` (string) - Label ID
 - **Response**: Success status and deleted label
 
@@ -212,13 +256,16 @@ Update and delete operations return:
 ```json
 {
   "success": true,
-  "task|column|label": { /* updated/deleted object */ }
+  "task|column|label": {
+    /* updated/deleted object */
+  }
 }
 ```
 
 ## CORS Configuration
 
 The API supports CORS for the following origins:
+
 - `http://localhost:4200`
 - `http://localhost:51448`
 
