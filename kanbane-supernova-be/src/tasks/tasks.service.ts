@@ -10,63 +10,63 @@ export class TasksService {
       name: 'Angular Components',
       columnId: '1',
       definition: 'The building blocks of Angular applications that control a part of the UI.',
-      link: 'https://angular.dev/guide/components'
+      links: ['https://angular.dev/guide/components']
     },
     {
       id: 'p-002',
       name: 'Angular Directives',
       columnId: '1',
       definition: 'Special markers in templates that add behavior to elements or modify DOM structure.',
-      link: 'https://angular.dev/guide/directives'
+      links: ['https://angular.dev/guide/directives']
     },
     {
       id: 'p-003',
       name: 'Angular Services & Dependency Injection',
       columnId: '1',
       definition: 'Reusable classes for business logic, injected where needed to keep components lean.',
-      link: 'https://angular.dev/guide/dependency-injection'
+      links: ['https://angular.dev/guide/dependency-injection']
     },
     {
       id: 'p-101',
       name: 'RxJS Observables',
       columnId: '2',
       definition: 'A way to handle asynchronous data streams, commonly used with Angular’s HttpClient.',
-      link: 'https://rxjs.dev/guide/observable'
+      links: ['https://rxjs.dev/guide/observable']
     },
     {
       id: 'p-102',
       name: 'Angular Routing',
       columnId: '2',
       definition: 'Defines navigation between views and passes data via route parameters.',
-      link: 'https://angular.dev/guide/routing'
+      links: ['https://angular.dev/guide/routing']
     },
     {
       id: 'p-103',
       name: 'Angular Forms (Template-driven & Reactive)',
       columnId: '2',
       definition: 'Two approaches to handle form inputs and validation in Angular.',
-      link: 'https://angular.dev/guide/forms-overview'
+      links: ['https://angular.dev/guide/forms-overview']
     },
     {
       id: 'p-201',
       name: 'Angular Signals',
       columnId: '3',
       definition: 'A new reactive primitive in Angular for fine-grained reactivity.',
-      link: 'https://angular.dev/guide/signals'
+      links: ['https://angular.dev/guide/signals']
     },
     {
       id: 'p-202',
       name: 'Change Detection',
       columnId: '3',
       definition: 'Mechanism that ensures the UI updates when application state changes.',
-      link: 'https://angular.dev/guide/change-detection'
+      links: ['https://angular.dev/guide/change-detection']
     },
     {
       id: 'p-203',
       name: 'Angular Modules (NgModules)',
       columnId: '3',
       definition: 'Organizes components, directives, and services into cohesive blocks.',
-      link: 'https://angular.dev/guide/ngmodules'
+      links: ['https://angular.dev/guide/ngmodules']
     }
   ];
 
@@ -76,7 +76,7 @@ export class TasksService {
       name: createTaskDto.name,
       definition: createTaskDto.definition,
       columnId: createTaskDto.columnId,
-      link: createTaskDto.link
+      links: createTaskDto.links
     };
 
     this.tasks.push(newTask);
@@ -111,5 +111,4 @@ export class TasksService {
 
     return { success: false, task: null };
   }
-
 }

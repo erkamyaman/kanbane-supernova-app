@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { TaskService } from './task-service';
@@ -10,13 +10,11 @@ import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
 
-// Update your Task interface
 export interface Task {
   id: string;
   name: string;
   definition: string;
-  link?: string; // Keep for backward compatibility
-  links?: string[]; // New multiple links array
+  links?: string[];
   columnId: string;
   startingTime?: Date;
   notes?: string;
@@ -33,15 +31,22 @@ export interface LabelOption {
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [DrawerModule, ButtonModule, Textarea, FormsModule, FloatLabel, MultiSelect, Tag, CommonModule, InputText],
+  imports: [DrawerModule, ButtonModule, Textarea, FormsModule, MultiSelect, Tag, CommonModule, InputText],
   templateUrl: './task.html',
   styleUrl: './task.scss'
 })
-export class Task {
+export class Task implements OnInit {
+  ngOnInit(): void {
+    const task = this.taskService.getSelectedTask();
+    if (task && task.link) {
+      task.links = [task.link];
+      task.links = [...task.links];
+      console.log(task)
+    }
+  }
   public taskService = inject(TaskService);
   public newLink: string = '';
 
-  // Available label options with icons
   availableLabels: LabelOption[] = [
     { label: 'JavaScript', value: 'javascript', color: '#f7df1e', icon: 'pi pi-code' },
     { label: 'TypeScript', value: 'typescript', color: '#3178c6', icon: 'pi pi-code' },
@@ -57,13 +62,11 @@ export class Task {
     { label: 'Hard', value: 'hard', color: '#e67e22', icon: 'pi pi-star' }
   ];
 
-  // Get the current selected task
   get task(): Task {
+    console.log('s')
     const task = this.taskService.getSelectedTask();
-    // Migrate old single link to links array if needed
-    if (task && task.link && (!task.links || task.links.length === 0)) {
+    if (task && task.links && (!task.links || task.links.length === 0)) {
       task.links = [task.link];
-      // Force change detection by creating a new array reference
       task.links = [...task.links];
     }
     return task;
@@ -78,25 +81,21 @@ export class Task {
     }
   }
 
-  // Get color for a specific label
   getLabelColor(labelValue: string): string {
     const labelOption = this.availableLabels.find(option => option.value === labelValue);
-    return labelOption?.color || '#6c757d'; // Default gray color
+    return labelOption?.color || '#6c757d';
   }
 
-  // Get icon for a specific label
   getLabelIcon(labelValue: string): string {
     const labelOption = this.availableLabels.find(option => option.value === labelValue);
-    return labelOption?.icon || 'pi pi-tag'; // Default tag icon
+    return labelOption?.icon || 'pi pi-tag';
   }
 
-  // Get display name for a specific label
   getLabelDisplayName(labelValue: string): string {
     const labelOption = this.availableLabels.find(option => option.value === labelValue);
     return labelOption?.label || labelValue;
   }
 
-  // Add new link
   addLink() {
     if (this.newLink && this.isValidUrl(this.newLink)) {
       const task = this.task;
@@ -104,23 +103,19 @@ export class Task {
         task.links = [];
       }
       task.links.push(this.newLink);
-      // Force change detection by creating a new array reference
       task.links = [...task.links];
       this.newLink = '';
     }
   }
 
-  // Remove link by index
   removeLink(index: number) {
     const task = this.task;
     if (task.links && task.links.length > index) {
       task.links.splice(index, 1);
-      // Force change detection by creating a new array reference
       task.links = [...task.links];
     }
   }
 
-  // Simple URL validation
   isValidUrl(string: string): boolean {
     try {
       new URL(string);

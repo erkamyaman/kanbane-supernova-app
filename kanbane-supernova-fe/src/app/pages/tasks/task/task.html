@@ -79,7 +79,7 @@
         Links
       </label>
 
-      @if (task.links && task.links.length > 0) {
+      @if (task.links) {
       <div class="flex flex-column gap-2">
         @for (link of task.links; track $index; let i = $index) {
         <div class="flex align-items-center gap-2 p-2 border-1 border-300 border-round">
