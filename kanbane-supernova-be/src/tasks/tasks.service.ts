@@ -76,9 +76,10 @@ export class TasksService {
       name: createTaskDto.name,
       definition: createTaskDto.definition,
       columnId: createTaskDto.columnId,
-      links: createTaskDto.links
+      links: [...createTaskDto.links]
     };
-
+    console.log(createTaskDto);
+    console.log(newTask);
     this.tasks.push(newTask);
     return this.tasks;
   }

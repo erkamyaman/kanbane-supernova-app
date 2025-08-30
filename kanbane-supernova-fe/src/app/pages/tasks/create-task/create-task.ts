@@ -40,7 +40,7 @@ export class CreateTask {
       name: this.form.getRawValue().name,
       columnId: this.form.getRawValue().column.id,
       definition: this.form.getRawValue().definition,
-      link: this.form.getRawValue().link,
+      links: [this.form.getRawValue().link],
     }
     this.kanbanService.createTask(task).subscribe({
       next: (data) => {

@@ -1,6 +1,6 @@
 @if (taskService.getSelectedTask(); as task) {
 <p-drawer [header]="task.name" [visible]="taskService.getTaskDrawerVisible()" (visibleChange)="onDrawerChange($event)" position="right" [style]="{ width: '30%' }">
-  <div class="flex flex-column gap-4">
+  <div class="flex flex-column gap-4 pb-4">
     <div class="flex flex-row gap-4">
       <div class="flex flex-column gap-1">
         <span class="text-500 text-sm flex align-items-center mb-1">

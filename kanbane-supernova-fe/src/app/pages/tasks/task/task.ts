@@ -37,12 +37,7 @@ export interface LabelOption {
 })
 export class Task implements OnInit {
   ngOnInit(): void {
-    const task = this.taskService.getSelectedTask();
-    if (task && task.link) {
-      task.links = [task.link];
-      task.links = [...task.links];
-      console.log(task)
-    }
+    //
   }
   public taskService = inject(TaskService);
   public newLink: string = '';
