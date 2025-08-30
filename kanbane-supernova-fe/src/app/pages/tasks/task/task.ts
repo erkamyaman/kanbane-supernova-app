@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { InputText } from 'primeng/inputtext';
 import { LabelOption } from '../../labels/labels';
 import { LabelService } from '../../../services/label.service';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 export interface Task {
   id: string;
@@ -23,11 +24,10 @@ export interface Task {
 }
 
 
-
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [DrawerModule, ButtonModule, Textarea, FormsModule, MultiSelect, Tag, CommonModule, InputText],
+  imports: [DrawerModule, ButtonModule, Textarea, FormsModule, MultiSelect, Tag, CommonModule, InputText, ToggleSwitchModule],
   templateUrl: './task.html',
   styleUrl: './task.scss'
 })
@@ -37,14 +37,15 @@ export class Task implements OnInit {
 
   newLink: string = '';
   availableLabels: LabelOption[] = []
+  editMode: boolean = false;
+
+
 
   ngOnInit(): void {
     this.labelService.getLabels().subscribe((data: any) => {
       this.availableLabels = data;
     });
   }
-
-
 
   get task(): Task {
     console.log('s')

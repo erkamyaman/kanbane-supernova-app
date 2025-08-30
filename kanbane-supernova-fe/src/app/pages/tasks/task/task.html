@@ -1,6 +1,13 @@
 @if (taskService.getSelectedTask(); as task) {
 <p-drawer [header]="task.name" [visible]="taskService.getTaskDrawerVisible()" (visibleChange)="onDrawerChange($event)" position="right" [style]="{ width: '50%' }">
   <div class="flex flex-column gap-4 pb-4">
+    <div class="flex flex-row gap-2 align-items-center">
+      <label class="text-500 text-sm flex align-items-center">
+        <i class="pi pi-pen-to-square mr-1"></i>
+        Edit
+      </label>
+      <p-toggleswitch [(ngModel)]="editMode" />
+    </div>
     <div class="flex flex-row gap-4">
       <div class="flex flex-column gap-1">
         <span class="text-500 text-sm flex align-items-center mb-1">
@@ -47,7 +54,7 @@
         <i class="pi pi-file-edit mr-1"></i>
         Definition
       </label>
-      <textarea pInputTextarea [(ngModel)]="task.definition" resize="vertical" rows="5" class="w-full max-h-14rem" style="min-height: calc(5 * 1.6rem)"></textarea>
+      <textarea pInputTextarea [(ngModel)]="task.definition" resize="vertical" [readOnly]="!editMode" rows="5" class="w-full max-h-14rem" style="min-height: calc(5 * 1.6rem)"></textarea>
     </div>
 
     <div class="flex flex-column gap-2">
@@ -55,9 +62,35 @@
         <i class="pi pi-book mr-1"></i>
         Notes
       </label>
-      <textarea pInputTextarea [(ngModel)]="task.notes" resize="vertical" rows="5" placeholder="Add your learning notes, insights, and progress here..." class="w-full max-h-14rem" style="min-height: calc(5 * 1.6rem)"></textarea>
+      <textarea pInputTextarea [(ngModel)]="task.notes" resize="vertical" rows="5" [readOnly]="!editMode" placeholder="Add your learning notes, insights, and progress here..." class="w-full max-h-14rem" style="min-height: calc(5 * 1.6rem)"></textarea>
     </div>
 
+    <div class="flex flex-column gap-2">
+      <label class="text-500 text-sm flex align-items-center mb-1">
+        <i class="pi pi-link mr-1"></i>
+        Links
+      </label>
+
+      @if (task.links) {
+      <div class="flex flex-column gap-2">
+        @for (link of task.links; track $index; let i = $index) {
+        <div class="flex align-items-center gap-2 p-2 border-1 border-300 border-round">
+          <a [href]="link" target="_blank" rel="noopener" class="font-medium flex-1 text-overflow-ellipsis overflow-hidden white-space-nowrap" style="text-decoration: none; color: inherit">{{ link }}</a>
+          @if(editMode){
+          <button pButton type="button" icon="pi pi-times" class="p-button-text p-button-sm p-button-danger m-0 p-0" (click)="removeLink(i)"></button>
+          }
+        </div>
+        }
+      </div>
+      } @if(editMode){
+      <div class="flex gap-2">
+        <input type="url" pInputText [(ngModel)]="newLink" placeholder="Enter URL..." class="flex-1" (keyup.enter)="addLink()" />
+        <button pButton type="button" icon="pi pi-plus" label="Add" class="p-button-sm" (click)="addLink()" [disabled]="!newLink || !isValidUrl(newLink)"></button>
+      </div>
+      }
+    </div>
+
+    @if(editMode){
     <div class="flex flex-column gap-2">
       <label class="text-500 text-sm flex align-items-center mb-1">
         <i class="pi pi-tag mr-1"></i>
@@ -72,29 +105,7 @@
         </ng-template>
       </p-multiSelect>
     </div>
-
-    <div class="flex flex-column gap-2">
-      <label class="text-500 text-sm flex align-items-center mb-1">
-        <i class="pi pi-link mr-1"></i>
-        Links
-      </label>
-
-      @if (task.links) {
-      <div class="flex flex-column gap-2">
-        @for (link of task.links; track $index; let i = $index) {
-        <div class="flex align-items-center gap-2 p-2 border-1 border-300 border-round">
-          <a [href]="link" target="_blank" rel="noopener" class="font-medium flex-1 text-overflow-ellipsis overflow-hidden white-space-nowrap" style="text-decoration: none; color: inherit">{{ link }}</a>
-          <button pButton type="button" icon="pi pi-times" class="p-button-text p-button-sm p-button-danger" (click)="removeLink(i)"></button>
-        </div>
-        }
-      </div>
-      }
-
-      <div class="flex gap-2">
-        <input type="url" pInputText [(ngModel)]="newLink" placeholder="Enter URL..." class="flex-1" (keyup.enter)="addLink()" />
-        <button pButton type="button" icon="pi pi-plus" label="Add" class="p-button-sm" (click)="addLink()" [disabled]="!newLink || !isValidUrl(newLink)"></button>
-      </div>
-    </div>
+    }
   </div>
 </p-drawer>
 }
