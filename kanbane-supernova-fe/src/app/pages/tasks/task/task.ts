@@ -4,7 +4,6 @@ import { DrawerModule } from 'primeng/drawer';
 import { TaskService } from './task-service';
 import { Textarea } from 'primeng/textarea';
 import { FormsModule } from '@angular/forms';
-import { FloatLabel } from 'primeng/floatlabel';
 import { MultiSelect } from 'primeng/multiselect';
 import { Tag } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
@@ -49,7 +48,6 @@ export class Task implements OnInit {
     { label: 'Backend', value: 'backend', color: '#68217a', icon: 'pi pi-server' },
     { label: 'Frontend', value: 'frontend', color: '#61dafb', icon: 'pi pi-desktop' },
     { label: 'Database', value: 'database', color: '#336791', icon: 'pi pi-database' },
-    { label: 'DevOps', value: 'devops', color: '#ff6b35', icon: 'pi pi-cloud' },
     { label: 'Design', value: 'design', color: '#ff7c43', icon: 'pi pi-palette' },
     { label: 'Testing', value: 'testing', color: '#25c2a0', icon: 'pi pi-check-circle' },
     { label: 'Urgent', value: 'urgent', color: '#e74c3c', icon: 'pi pi-exclamation-triangle' },

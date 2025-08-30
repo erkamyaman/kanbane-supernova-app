@@ -26,22 +26,41 @@ export class ColumnsService {
   ];
 
   create(createColumnDto: CreateColumnDto) {
-    return 'This action adds a new column';
+    const newColumn = {
+      id: `${Math.floor(Math.random() * 10000)}`,
+      title: createColumnDto.title,
+      icon: createColumnDto.icon || 'pi-tag',
+      iconColor: createColumnDto.iconColor || '#000000'
+    };
+    this.columns.push(newColumn);
+    return this.columns;
   }
 
   findAll() {
     return this.columns;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} column`;
+  findOne(id: string) {
+    return this.columns.find(column => column.id === id);
   }
 
-  update(id: number, updateColumnDto: UpdateColumnDto) {
-    return `This action updates a #${id} column`;
+  update(id: string, updateColumnDto: UpdateColumnDto) {
+    const idx = this.columns.findIndex((column) => column.id === id);
+    if (idx > -1) {
+      this.columns[idx] = { ...this.columns[idx], ...updateColumnDto };
+      return { success: true, column: this.columns[idx] };
+    }
+    return { success: false, message: `Column with id ${id} not found` };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} column`;
+  remove(id: string) {
+    const idx = this.columns.findIndex((column) => column.id === id);
+
+    if (idx !== -1) {
+      const removed = this.columns.splice(idx, 1)[0];
+      return { success: true, column: removed };
+    }
+
+    return { success: false, column: null };
   }
 }
