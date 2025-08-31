@@ -39,8 +39,8 @@
         <input type="color" id="columnColor" [(ngModel)]="newColumn.iconColor" class="w-full" style="height: 40px; border-radius: 6px; border: 1px solid var(--surface-border)" />
       </div>
       <div class="flex flex-row gap-2">
-        <button pButton class="w-full" label="Create Column" icon="pi pi-check" (onClick)="createColumn()" [disabled]="!newColumn.title || newColumn.title.trim().length < 3 || isLoading" [loading]="isLoading"></button>
-        <button pButton class="w-full" label="Cancel" icon="pi pi-times" (onClick)="resetForm()" [outlined]="true" [severity]="'secondary'"></button>
+        <button pButton class="w-full" label="Create Column" icon="pi pi-check" (click)="createColumn()" [disabled]="!newColumn.title || newColumn.title.trim().length < 3 || isLoading" [loading]="isLoading"></button>
+        <button pButton class="w-full" label="Cancel" icon="pi pi-times" (click)="resetForm()" [outlined]="true" [severity]="'secondary'"></button>
       </div>
     </div>
   </div>
