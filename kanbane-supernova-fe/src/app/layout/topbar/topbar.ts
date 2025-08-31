@@ -35,6 +35,21 @@ export class Topbar implements OnInit {
 
   columns: Column[] = [];
 
+  kanbans: any[] = [
+    { name: 'JavaScript', code: 'JS' },
+    { name: 'TypeScript', code: 'TS' },
+    { name: 'Angular', code: 'ANG' },
+    { name: 'React', code: 'REACT' },
+    { name: 'Vue.js', code: 'VUE' },
+    { name: 'Node.js', code: 'NODE' },
+    { name: 'Spring Boot', code: 'SPR' },
+    { name: 'PostgreSQL', code: 'PSQL' },
+    { name: 'Docker', code: 'DOCK' },
+    { name: 'Kubernetes', code: 'K8S' }
+  ];
+
+  selectedKanban: any = this.kanbans[0];
+
 
   constructor() {
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
