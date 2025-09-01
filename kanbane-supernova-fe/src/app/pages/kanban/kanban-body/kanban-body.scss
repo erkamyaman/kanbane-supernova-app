@@ -8,6 +8,8 @@ li:hover .dot-icon {
 }
 
 .no-select {
+  min-width: 100%;
+  max-width: 100%;
   user-select: none; /* Standard */
   -webkit-user-select: none; /* Chrome, Safari */
   -moz-user-select: none; /* Firefox */
@@ -46,10 +48,21 @@ li:hover .dot-icon {
 
 .add-button button {
   opacity: 0;
-  pointer-events: none; /* unclickable when hidden */
+  pointer-events: none;
 }
 
 .add-button:hover button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.no-select .options-area {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.no-select:hover .options-area {
   opacity: 1;
   pointer-events: auto;
 }

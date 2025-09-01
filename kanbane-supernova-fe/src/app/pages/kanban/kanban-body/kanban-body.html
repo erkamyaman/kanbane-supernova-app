@@ -6,7 +6,7 @@
         <i [ngClass]="'pi ' + col.icon " [ngStyle]="{ 'font-size': '1.5rem', 'color': col.iconColor }"></i>
         <div class="column-icon">{{col.title}}</div>
       </div>
-      <div class="flex gap-3">
+      <div class="flex gap-3 options-area">
         <i class="pi pi-pencil text-primary-400 cursor-pointer" style="font-size: 1rem" (click)="editColumn(col)"></i>
         <i class="pi pi-trash text-primary-400 cursor-pointer" style="font-size: 1rem" (click)="deleteColumn(col.id)"></i>
       </div>
