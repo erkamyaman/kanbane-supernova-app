@@ -20,6 +20,8 @@ export class Columns implements OnInit {
   isLoading: boolean = false;
   columns: Column[] = [];
   showCreateForm: boolean = false;
+  showEditForm: boolean = false;
+  editingColumnId: string | null = null;
   newColumn: Partial<Column> = {
     title: '',
     icon: 'pi-tag',
@@ -77,6 +79,34 @@ export class Columns implements OnInit {
     });
   }
 
+  updateColumn() {
+    if (!this.editingColumnId || !this.newColumn.title ||
+      this.newColumn.title.trim().length < 3) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.columnService.updateColumn(this.editingColumnId, this.newColumn).subscribe({
+      next: (data) => {
+        this.getColumns();
+        this.resetForm();
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  editColumn(column: Column) {
+    this.editingColumnId = column.id;
+    this.newColumn = { ...column };
+    this.showEditForm = true;
+    this.showCreateForm = false;
+  }
+
   deleteColumnConfirmation($event: MouseEvent, columnId: string) {
     event?.stopPropagation();
     this.confirmationService.confirm({
@@ -112,9 +142,13 @@ export class Columns implements OnInit {
       iconColor: '#000000'
     };
     this.showCreateForm = false;
+    this.showEditForm = false;
+    this.editingColumnId = null;
   }
 
   toggleCreateForm() {
     this.showCreateForm = !this.showCreateForm;
+    this.showEditForm = false;
+    this.editingColumnId = null;
   }
 }

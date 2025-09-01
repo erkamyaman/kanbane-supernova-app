@@ -1,13 +1,13 @@
 <div class="columns-container py-2">
   <div class="flex align-items-center mb-3">
-    @if(showCreateForm){
-    <h3>New Column</h3>
+    @if(showCreateForm || showEditForm){
+    <h3>{{ showEditForm ? 'Edit Column' : 'New Column' }}</h3>
     }@else{
     <p-button class="ml-auto" label="Add Column" icon="pi pi-plus" (onClick)="toggleCreateForm()" [outlined]="true" />
     }
   </div>
 
-  @if (showCreateForm) {
+  @if (showCreateForm || showEditForm) {
   <div class="create-form mb-3 p-3 border-round border-1 border-gray-300">
     <div class="flex flex-column gap-3">
       <div class="flex flex-column gap-2">
@@ -39,7 +39,7 @@
         <input type="color" id="columnColor" [(ngModel)]="newColumn.iconColor" class="w-full" style="height: 40px; border-radius: 6px; border: 1px solid var(--surface-border)" />
       </div>
       <div class="flex flex-row gap-2">
-        <button pButton class="w-full" label="Create Column" icon="pi pi-check" (click)="createColumn()" [disabled]="!newColumn.title || newColumn.title.trim().length < 3 || isLoading" [loading]="isLoading"></button>
+        <button pButton class="w-full" [label]="showEditForm ? 'Update Column' : 'Create Column'" [icon]="showEditForm ? 'pi pi-check' : 'pi pi-plus'" (click)="showEditForm ? updateColumn() : createColumn()" [disabled]="!newColumn.title || newColumn.title.trim().length < 3 || isLoading" [loading]="isLoading"></button>
         <button pButton class="w-full" label="Cancel" icon="pi pi-times" (click)="resetForm()" [outlined]="true" [severity]="'secondary'"></button>
       </div>
     </div>
@@ -52,7 +52,7 @@
   <div class="no-columns">
     <p>No columns found.</p>
   </div>
-  } @if (!isLoading && columns.length > 0 && !showCreateForm) {
+  } @if (!isLoading && columns.length > 0 && !showCreateForm && !showEditForm) {
   <div class="columns-grid">
     @for (column of columns; track column.id) {
     <div class="column-item flex justify-content-between align-items-center p-3 border-round border-1 border-gray-300">
@@ -60,7 +60,10 @@
         <i [class]="'pi ' + column.icon" class="text-lg" [style]="{'color': column.iconColor}"></i>
         <span class="font-medium">{{ column.title }}</span>
       </div>
-      <p-button type="button" severity="danger" icon="pi pi-trash" (onClick)="deleteColumnConfirmation($event, column.id)" [disabled]="isLoading" />
+      <div class="flex gap-2">
+        <p-button type="button" severity="info" icon="pi pi-pencil" (onClick)="editColumn(column)" [disabled]="isLoading" [outlined]="true" />
+        <p-button type="button" severity="danger" icon="pi pi-trash" (onClick)="deleteColumnConfirmation($event, column.id)" [disabled]="isLoading" />
+      </div>
     </div>
     }
   </div>

@@ -29,3 +29,12 @@ li:hover .dot-icon {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+/* Edit Column Dialog Styles */
+.edit-column-form {
+  .form-group {
+    label {
+      color: var(--text-color);
+    }
+  }
+}

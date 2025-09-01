@@ -1,5 +1,56 @@
 <div class="labels-container py-2">
-  @if (isLoading) {
+  <div class="flex align-items-center mb-3">
+    @if(showCreateForm || showEditForm){
+    <h3>{{ showEditForm ? 'Edit Label' : 'New Label' }}</h3>
+    }@else{
+    <p-button class="ml-auto" label="Add Label" icon="pi pi-plus" (onClick)="toggleCreateForm()" [outlined]="true" />
+    }
+  </div>
+
+  @if (showCreateForm || showEditForm) {
+  <div class="create-form mb-3 p-3 border-round border-1 border-gray-300">
+    <div class="flex flex-column gap-3">
+      <div class="flex flex-column gap-2">
+        <label for="labelName" class="font-medium">Label Name</label>
+        <input pInputText id="labelName" [(ngModel)]="newLabel.label" placeholder="Enter label name (min 2 characters)" class="w-full" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="labelValue" class="font-medium">Label Value</label>
+        <input pInputText id="labelValue" [(ngModel)]="newLabel.value" placeholder="Enter label value (min 2 characters)" class="w-full" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="labelIcon" class="font-medium">Icon</label>
+        <p-select id="labelIcon" [options]="iconOptions" [(ngModel)]="newLabel.icon" optionLabel="label" optionValue="value" placeholder="Select an icon" class="w-full">
+          <ng-template pTemplate="selectedItem" let-selectedOption>
+            <div class="flex align-items-center gap-2">
+              <i [class]="selectedOption.value" class="text-sm"></i>
+              <span>{{ selectedOption.label }}</span>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="item" let-option>
+            <div class="flex align-items-center gap-2">
+              <i [class]="option.value" class="text-sm"></i>
+              <span>{{ option.label }}</span>
+            </div>
+          </ng-template>
+        </p-select>
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="labelColor" class="font-medium">Label Color</label>
+        <input type="color" id="labelColor" [(ngModel)]="newLabel.color" class="w-full" style="height: 40px; border-radius: 6px; border: 1px solid var(--surface-border)" />
+      </div>
+
+      <div class="flex flex-row gap-2">
+        <button pButton class="w-full" [label]="showEditForm ? 'Update Label' : 'Create Label'" [icon]="showEditForm ? 'pi pi-check' : 'pi pi-plus'" (click)="showEditForm ? updateLabel() : createLabel()" [disabled]="isLoading"></button>
+        <button pButton class="w-full" label="Cancel" icon="pi pi-times" (click)="resetForm()" [outlined]="true" [severity]="'secondary'"></button>
+      </div>
+    </div>
+  </div>
+  } @if (isLoading) {
   <div class="loading">
     <p>Loading labels...</p>
   </div>
@@ -7,13 +58,16 @@
   <div class="no-labels">
     <p>No labels found.</p>
   </div>
-  } @if (!isLoading && labels.length > 0) {
+  } @if (!isLoading && labels.length > 0 && !showCreateForm && !showEditForm) {
   <div class="flex flex-wrap gap-2">
     @for (label of labels; track label.value) {
     <div class="label-tag" [style]="{'background-color': label.color}">
       <i [class]="label.icon" class="text-sm"></i>
       <span class="text-sm font-medium">{{ label.label }}</span>
-      <button pButton type="button" icon="pi pi-times" class="p-button-sm p-button-danger p-button-rounded delete-btn" (click)="deleteLabelConfirmation($event, label.id)"></button>
+      <div class="label-actions">
+        <button pButton type="button" icon="pi pi-pencil" class="p-button-sm p-button-text p-button-rounded edit-btn" (click)="editLabel(label)" [disabled]="isLoading"></button>
+        <button pButton type="button" icon="pi pi-times" class="p-button-sm p-button-danger p-button-rounded delete-btn" (click)="deleteLabelConfirmation($event, label.id)" [disabled]="isLoading"></button>
+      </div>
     </div>
     }
   </div>

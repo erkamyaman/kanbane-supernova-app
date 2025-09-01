@@ -41,7 +41,7 @@ export class ColumnsService {
   }
 
   findOne(id: string) {
-    return this.columns.find(column => column.id === id);
+    return this.columns.find((column) => column.id === id);
   }
 
   update(id: string, updateColumnDto: UpdateColumnDto) {

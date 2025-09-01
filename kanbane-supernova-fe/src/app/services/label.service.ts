@@ -18,7 +18,11 @@ export class LabelService {
     return this.http.delete<any>(`${environment.apiUrl}/labels/${id}`);
   }
 
-  createLabel(label: LabelOption) {
-    return this.http.post<any>(`${environment.apiUrl}/label`, label);
+  createLabel(label: Omit<LabelOption, 'id'>): Observable<LabelOption> {
+    return this.http.post<LabelOption>(`${environment.apiUrl}/labels`, label);
+  }
+
+  updateLabel(id: string, label: Partial<LabelOption>): Observable<LabelOption> {
+    return this.http.patch<LabelOption>(`${environment.apiUrl}/labels/${id}`, { data: label });
   }
 }

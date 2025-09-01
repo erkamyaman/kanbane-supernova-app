@@ -5,20 +5,27 @@ import { TaskService } from '../../tasks/task/task-service';
 import { KanbanService } from '../../../services/kanban-service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { ColumnService } from '../../../services/column.service';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
 
 export type Task = { id: string; name: string; columnId?: string; details?: any[] };
 export type Column = { id: string; title: string; icon: string; iconColor: string; };
 
 @Component({
   selector: 'app-kanban-body',
-  imports: [DragDropModule, NgClass, NgStyle, ConfirmDialogModule],
+  imports: [DragDropModule, NgClass, NgStyle, ConfirmDialogModule, FormsModule, DialogModule, InputTextModule, ButtonModule, SelectModule],
   templateUrl: './kanban-body.html',
   styleUrl: './kanban-body.scss'
 })
 export class KanbanBody {
   public taskService = inject(TaskService);
   public kanbanService = inject(KanbanService);
-  public confirmationService = inject(ConfirmationService)
+  public confirmationService = inject(ConfirmationService);
+  public columnService = inject(ColumnService);
 
   fromColId: string = '';
   draggedProduct: any | undefined | null;
@@ -26,6 +33,28 @@ export class KanbanBody {
 
   columns: Column[] = []
   tasks: Task[] = []
+  editingColumn: Column | null = null;
+  showEditForm: boolean = false;
+
+  iconOptions = [
+    { label: 'Tag', value: 'pi-tag' },
+    { label: 'Asterisk', value: 'pi-asterisk' },
+    { label: 'Clock', value: 'pi-clock' },
+    { label: 'Crown', value: 'pi-crown' },
+    { label: 'Star', value: 'pi-star' },
+    { label: 'Heart', value: 'pi-heart' },
+    { label: 'Check', value: 'pi-check' },
+    { label: 'Times', value: 'pi-times' },
+    { label: 'Code', value: 'pi-code' },
+    { label: 'Cog', value: 'pi-cog' },
+    { label: 'Server', value: 'pi-server' },
+    { label: 'Desktop', value: 'pi-desktop' },
+    { label: 'Database', value: 'pi-database' },
+    { label: 'Palette', value: 'pi-palette' },
+    { label: 'Check Circle', value: 'pi-check-circle' },
+    { label: 'Exclamation Triangle', value: 'pi-exclamation-triangle' },
+    { label: 'Thumbs Up', value: 'pi-thumbs-up' }
+  ];
 
   ngOnInit() {
     this.getColumns()
@@ -125,5 +154,39 @@ export class KanbanBody {
   showTaskDrawer(task: any) {
     this.taskService.selectTask(task);
     this.taskService.openDrawer();
+  }
+
+  editColumn(column: Column) {
+    this.editingColumn = { ...column };
+    this.showEditForm = true;
+  }
+
+  updateColumn() {
+    if (!this.editingColumn || !this.editingColumn.title || this.editingColumn.title.trim().length < 3) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.columnService.updateColumn(this.editingColumn.id, this.editingColumn).subscribe({
+      next: (data) => {
+        this.getColumns();
+        this.cancelEdit();
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  cancelEdit() {
+    this.editingColumn = null;
+    this.showEditForm = false;
+  }
+
+  get isUpdateDisabled(): boolean {
+    return !this.editingColumn?.title || this.editingColumn.title.trim().length < 3 || this.isLoading;
   }
 }

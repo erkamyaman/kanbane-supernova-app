@@ -6,7 +6,7 @@
         <i [ngClass]="'pi ' + col.icon " [ngStyle]="{ 'font-size': '1.5rem', 'color': col.iconColor }"></i>
         <div class="column-icon">{{col.title}}</div>
       </div>
-      <i class="pi pi-pencil text-primary-400 cursor-pointer" style="font-size: 0.75rem"></i>
+      <i class="pi pi-pencil text-primary-400 cursor-pointer" style="font-size: 0.75rem" (click)="editColumn(col)"></i>
     </div>
     @if (tasks.length) {
     <ul class="list-none flex flex-column gap-2 p-0 m-0 pb-4 overflow-y-auto align-items-start">
@@ -32,3 +32,46 @@
 
   <p-confirmDialog></p-confirmDialog>
 </div>
+
+<!-- Edit Column Dialog -->
+<p-dialog header="Edit Column" [(visible)]="showEditForm" [modal]="true" [style]="{width: '400px'}" [closable]="true" (onHide)="cancelEdit()">
+  @if (editingColumn) {
+  <div class="edit-column-form">
+    <div class="form-group mb-3">
+      <label for="columnTitle" class="block mb-2 font-medium">Column Title</label>
+      <input pInputText id="columnTitle" [(ngModel)]="editingColumn.title" placeholder="Enter column title" class="w-full" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="columnIcon" class="block mb-2 font-medium">Icon</label>
+      <p-select id="columnIcon" [options]="iconOptions" [(ngModel)]="editingColumn.icon" optionLabel="label" optionValue="value" placeholder="Select an icon" class="w-full">
+        <ng-template pTemplate="selectedItem" let-selectedOption>
+          <div class="flex align-items-center gap-2">
+            <i [class]="'pi ' + selectedOption.value" class="text-sm"></i>
+            <span>{{ selectedOption.label }}</span>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="item" let-option>
+          <div class="flex align-items-center gap-2">
+            <i [class]="'pi ' + option.value" class="text-sm"></i>
+            <span>{{ option.label }}</span>
+          </div>
+        </ng-template>
+      </p-select>
+    </div>
+
+    <div class="form-group mb-4">
+      <label for="columnColor" class="block mb-2 font-medium">Icon Color</label>
+      <input type="color" id="columnColor" [(ngModel)]="editingColumn.iconColor" class="w-full" style="height: 40px; border-radius: 6px; border: 1px solid var(--surface-border)" />
+    </div>
+  </div>
+  }
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-end gap-2">
+      <p-button label="Cancel" icon="pi pi-times" (onClick)="cancelEdit()" [outlined]="true" severity="secondary" />
+      <p-button [label]="isLoading ? 'Updating...' : 'Update Column'" icon="pi pi-check" (onClick)="updateColumn()" [disabled]="isUpdateDisabled" [loading]="isLoading" />
+    </div>
+  </ng-template>
+</p-dialog>
