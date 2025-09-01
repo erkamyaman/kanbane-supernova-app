@@ -11,6 +11,9 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { SelectModule } from 'primeng/select';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Columns } from '../../columns/columns';
+import { Topbar } from '../../../layout/topbar/topbar';
 
 export type Task = { id: string; name: string; columnId?: string; details?: any[] };
 export type Column = { id: string; title: string; icon: string; iconColor: string; };
@@ -19,17 +22,21 @@ export type Column = { id: string; title: string; icon: string; iconColor: strin
   selector: 'app-kanban-body',
   imports: [DragDropModule, NgClass, NgStyle, ConfirmDialogModule, FormsModule, DialogModule, InputTextModule, ButtonModule, SelectModule],
   templateUrl: './kanban-body.html',
-  styleUrl: './kanban-body.scss'
+  styleUrl: './kanban-body.scss',
+  providers: [DialogService]
+
 })
 export class KanbanBody {
   public taskService = inject(TaskService);
   public kanbanService = inject(KanbanService);
   public confirmationService = inject(ConfirmationService);
   public columnService = inject(ColumnService);
+  dialogService = inject(DialogService);
 
   fromColId: string = '';
   draggedProduct: any | undefined | null;
   isLoading: boolean = false;
+  ref: DynamicDialogRef | undefined;
 
   columns: Column[] = []
   tasks: Task[] = []
@@ -188,5 +195,29 @@ export class KanbanBody {
 
   get isUpdateDisabled(): boolean {
     return !this.editingColumn?.title || this.editingColumn.title.trim().length < 3 || this.isLoading;
+  }
+
+  openColumnsDialog() {
+    this.ref = this.dialogService.open(Columns, {
+      header: 'Columns',
+      width: '600px',
+      modal: true,
+      closable: true,
+      draggable: true,
+      data: {
+        onlyNewColumn: true
+      }
+    });
+
+    this.ref.onClose.subscribe(() => {
+      console.log('sss')
+      this.getColumns();
+    });
+  }
+
+  // experimental
+  someMethod(number1: number, number2: number) {
+    const func = Topbar.func(number1, number2)
+    console.log(func)
   }
 }

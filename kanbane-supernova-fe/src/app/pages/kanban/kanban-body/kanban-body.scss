@@ -18,13 +18,12 @@ li:hover .dot-icon {
   position: relative;
   display: flex;
   align-items: center;
-  height: 80px; /* pick a size you like: 64/72/80px */
-  overflow: hidden; /* ensure nothing bleeds outside */
+  height: 80px;
+  overflow: hidden;
 }
 
-/* keep the title from creating extra lines */
 .task-title {
-  max-width: calc(100% - 3rem); /* leaves room for the trash icon */
+  max-width: calc(100% - 3rem);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -37,4 +36,8 @@ li:hover .dot-icon {
       color: var(--text-color);
     }
   }
+}
+
+.add-button {
+  align-self: flex-start;
 }

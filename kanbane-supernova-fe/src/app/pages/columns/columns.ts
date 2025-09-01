@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-columns',
@@ -16,12 +17,16 @@ import { CommonModule } from '@angular/common';
 export class Columns implements OnInit {
   private columnService = inject(ColumnService);
   public confirmationService = inject(ConfirmationService);
+  public config = inject(DynamicDialogConfig);
+  public ref = inject(DynamicDialogRef)
 
   isLoading: boolean = false;
   columns: Column[] = [];
   showCreateForm: boolean = false;
   showEditForm: boolean = false;
   editingColumnId: string | null = null;
+  onlyNewColumn: boolean = false;
+
   newColumn: Partial<Column> = {
     title: '',
     icon: 'pi-tag',
@@ -41,6 +46,12 @@ export class Columns implements OnInit {
 
   ngOnInit() {
     this.getColumns();
+
+    console.log(this.config)
+    if (this.config.data?.onlyNewColumn == true) {
+      this.onlyNewColumn = true;
+      this.showCreateForm = true;
+    }
   }
 
   getColumns() {
@@ -67,6 +78,10 @@ export class Columns implements OnInit {
     this.isLoading = true;
     this.columnService.createColumn(this.newColumn as Omit<Column, 'id'>).subscribe({
       next: (data) => {
+        if (this.onlyNewColumn) {
+          this.ref.close({})
+          return;
+        }
         this.getColumns();
         this.resetForm();
       },

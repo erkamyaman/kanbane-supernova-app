@@ -40,7 +40,10 @@
       </div>
       <div class="flex flex-row gap-2">
         <button pButton class="w-full" [label]="showEditForm ? 'Update Column' : 'Create Column'" [icon]="showEditForm ? 'pi pi-check' : 'pi pi-plus'" (click)="showEditForm ? updateColumn() : createColumn()" [disabled]="!newColumn.title || newColumn.title.trim().length < 3 || isLoading" [loading]="isLoading"></button>
+
+        @if(!onlyNewColumn){
         <button pButton class="w-full" label="Cancel" icon="pi pi-times" (click)="resetForm()" [outlined]="true" [severity]="'secondary'"></button>
+        }
       </div>
     </div>
   </div>

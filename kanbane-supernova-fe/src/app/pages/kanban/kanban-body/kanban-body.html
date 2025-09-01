@@ -1,5 +1,5 @@
 <div class="flex flex-row align-items-center gap-2 w-fit h-auto mt-3 mb-3 border-round-md">
-  @for (col of columns; track col.id) {
+  @for (col of columns; track col.id; let isLast = $last) {
   <div style="height: 80vh" class="flex flex-column pb-3 bg-color-custom w-22rem border-round-md border-1 border-gray-500" pDroppable (onDrop)="drop(col.id)">
     <div class="flex flex-row mb-3 px-3 my-4 align-items-center justify-content-between no-select">
       <div class="flex flex-row gap-2 align-items-center justify-content-center">
@@ -29,7 +29,9 @@
     }
   </div>
   }
-
+  <div class="add-button">
+    <button pButton icon="pi pi-plus" [rounded]="true" (click)="openColumnsDialog()" class="p-button-outlined p-button-primary"></button>
+  </div>
   <p-confirmDialog></p-confirmDialog>
 </div>
 
@@ -44,7 +46,7 @@
 
     <div class="form-group mb-3">
       <label for="columnIcon" class="block mb-2 font-medium">Icon</label>
-      <p-select id="columnIcon" [options]="iconOptions" [(ngModel)]="editingColumn.icon" optionLabel="label" optionValue="value" placeholder="Select an icon" class="w-full">
+      <p-select id="columnIcon" [options]="iconOptions" [(ngModel)]="editingColumn.icon" appendTo="body" optionLabel="label" optionValue="value" placeholder="Select an icon" class="w-full">
         <ng-template pTemplate="selectedItem" let-selectedOption>
           <div class="flex align-items-center gap-2">
             <i [class]="'pi ' + selectedOption.value" class="text-sm"></i>

@@ -122,6 +122,18 @@ export class Topbar implements OnInit {
     });
   }
 
+
+  // experimental
+  static func(a: number, b: number) {
+    return a * b
+  }
+
+  someMethod(number1: number, number2: number) {
+    const func = Topbar.func(number1, number2)
+    console.log(func)
+  }
+
+
   openTheOption(operation: string) {
     switch (operation) {
       case 'kanban':
