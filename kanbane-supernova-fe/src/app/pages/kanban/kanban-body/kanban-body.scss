@@ -40,4 +40,16 @@ li:hover .dot-icon {
 
 .add-button {
   align-self: flex-start;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+}
+
+.add-button button {
+  opacity: 0;
+  pointer-events: none; /* unclickable when hidden */
+}
+
+.add-button:hover button {
+  opacity: 1;
+  pointer-events: auto;
 }

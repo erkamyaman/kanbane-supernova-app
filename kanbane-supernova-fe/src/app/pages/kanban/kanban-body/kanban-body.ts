@@ -210,7 +210,6 @@ export class KanbanBody {
     });
 
     this.ref.onClose.subscribe(() => {
-      console.log('sss')
       this.getColumns();
     });
   }
