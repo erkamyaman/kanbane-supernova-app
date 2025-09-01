@@ -6,7 +6,10 @@
         <i [ngClass]="'pi ' + col.icon " [ngStyle]="{ 'font-size': '1.5rem', 'color': col.iconColor }"></i>
         <div class="column-icon">{{col.title}}</div>
       </div>
-      <i class="pi pi-pencil text-primary-400 cursor-pointer" style="font-size: 0.75rem" (click)="editColumn(col)"></i>
+      <div class="flex gap-3">
+        <i class="pi pi-pencil text-primary-400 cursor-pointer" style="font-size: 1rem" (click)="editColumn(col)"></i>
+        <i class="pi pi-trash text-primary-400 cursor-pointer" style="font-size: 1rem" (click)="deleteColumn(col.id)"></i>
+      </div>
     </div>
     @if (tasks.length) {
     <ul class="list-none flex flex-column gap-2 p-0 m-0 pb-4 overflow-y-auto align-items-start">

@@ -188,6 +188,28 @@ export class KanbanBody {
     });
   }
 
+  deleteColumn(id: string) {
+    event?.stopPropagation();
+
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this column?',
+      header: 'Confirm Deletion',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Yes',
+      rejectLabel: 'No',
+      accept: () => {
+        this.columnService.deleteColumn(id).subscribe({
+          next: () => {
+            this.getColumns();
+          }
+        })
+      },
+      reject: () => {
+        console.log('Deletion cancelled');
+      }
+    });
+  }
+
   cancelEdit() {
     this.editingColumn = null;
     this.showEditForm = false;
