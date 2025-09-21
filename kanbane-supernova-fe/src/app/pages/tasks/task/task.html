@@ -96,21 +96,11 @@
         <i class="pi pi-tag mr-1"></i>
         Labels
       </label>
-      <p-multiSelect [(ngModel)]="task.labels" [options]="availableLabels" placeholder="Select labels" [showClear]="true" [filter]="true" filterBy="name" optionLabel="name" class="w-full">
+      <p-multiSelect [(ngModel)]="selectedLabelIds" [options]="availableLabels" placeholder="Select labels" [showClear]="true" [filter]="true" filterBy="name" optionLabel="name" optionValue="id" class="w-full" (onChange)="onLabelChange($event)">
         <ng-template let-option pTemplate="item">
           <div class="flex align-items-center gap-2">
             <i class="pi pi-tag" [style]="{'color': option.color}"></i>
             <span>{{ option.name }}</span>
-          </div>
-        </ng-template>
-        <ng-template let-value pTemplate="selectedItems">
-          <div class="flex flex-wrap gap-1">
-            @for (label of value; track label.id) {
-            <span class="inline-flex align-items-center gap-1 px-2 py-1 text-xs border-round" [style]="{'background-color': label.color, 'color': 'white'}">
-              <i class="pi pi-tag text-xs"></i>
-              {{ label.name }}
-            </span>
-            }
           </div>
         </ng-template>
       </p-multiSelect>

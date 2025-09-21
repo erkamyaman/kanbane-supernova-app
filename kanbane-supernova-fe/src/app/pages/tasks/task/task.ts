@@ -44,6 +44,7 @@ export class Task implements OnInit {
   newLink: string = '';
   availableLabels: any[] = []
   editMode: boolean = false;
+  selectedLabelIds: string[] = [];
 
   // Define the available labels with consistent colors and icons
   private predefinedLabels = [
@@ -72,16 +73,43 @@ export class Task implements OnInit {
       task.links = [task.link];
       task.links = [...task.links];
     }
+
     return task;
+  }
+
+  // Method to sync selected label IDs when task changes
+  syncSelectedLabelIds() {
+    const task = this.task;
+    console.log('Syncing labels for task:', task);
+    console.log('Task labels:', task?.labels);
+    if (task && task.labels) {
+      this.selectedLabelIds = task.labels.map((label: Label) => label.id);
+      console.log('Selected label IDs:', this.selectedLabelIds);
+    } else {
+      this.selectedLabelIds = [];
+      console.log('No labels found, setting empty array');
+    }
   }
 
   onDrawerChange(value: boolean) {
     console.log(this.taskService.getSelectedTask())
     if (value) {
       this.taskService.openDrawer();
+      // Sync selected labels when drawer opens
+      setTimeout(() => this.syncSelectedLabelIds(), 0);
     } else {
       this.taskService.closeDrawer();
     }
+  }
+
+  onLabelChange(event: any) {
+    const selectedIds = event.value;
+    const task = this.task;
+
+    // Update task labels based on selected IDs
+    task.labels = selectedIds.map((id: string) =>
+      this.predefinedLabels.find((label: any) => label.id === id)
+    ).filter((label: any) => label !== undefined);
   }
 
   getLabelColor(label: Label): string {
