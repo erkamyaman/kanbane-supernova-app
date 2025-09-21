@@ -1,5 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import { MinLength, IsOptional, IsUrl } from 'class-validator';
+import { MinLength, IsOptional, IsUrl, IsArray, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
+export class LabelDto {
+  id: string;
+  name: string;
+  color: string;
+}
 
 export class CreateTaskDto {
   @MinLength(5)
@@ -13,4 +19,10 @@ export class CreateTaskDto {
   @IsOptional()
   @IsUrl()
   links: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => LabelDto)
+  labels: LabelDto[];
 }

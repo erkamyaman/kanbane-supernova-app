@@ -12,6 +12,12 @@ import { LabelOption } from '../../labels/labels';
 import { LabelService } from '../../../services/label.service';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
+export interface Label {
+  id: string;
+  name: string;
+  color: string;
+}
+
 export interface Task {
   id: string;
   name: string;
@@ -20,7 +26,7 @@ export interface Task {
   columnId: string;
   startingTime?: Date;
   notes?: string;
-  labels?: string[];
+  labels?: Label[];
 }
 
 
@@ -36,15 +42,27 @@ export class Task implements OnInit {
   public labelService = inject(LabelService);
 
   newLink: string = '';
-  availableLabels: LabelOption[] = []
+  availableLabels: any[] = []
   editMode: boolean = false;
 
-
+  // Define the available labels with consistent colors and icons
+  private predefinedLabels = [
+    { id: 'l-001', name: 'Frontend', color: '#3B82F6', value: 'l-001' },
+    { id: 'l-002', name: 'Angular', color: '#DD0031', value: 'l-002' },
+    { id: 'l-003', name: 'Components', color: '#F59E0B', value: 'l-003' },
+    { id: 'l-004', name: 'Templates', color: '#8B5CF6', value: 'l-004' },
+    { id: 'l-005', name: 'Backend', color: '#10B981', value: 'l-005' },
+    { id: 'l-006', name: 'Architecture', color: '#6B7280', value: 'l-006' },
+    { id: 'l-007', name: 'RxJS', color: '#B7178C', value: 'l-007' },
+    { id: 'l-008', name: 'Async', color: '#EC4899', value: 'l-008' },
+    { id: 'l-009', name: 'Navigation', color: '#06B6D4', value: 'l-009' },
+    { id: 'l-010', name: 'Forms', color: '#84CC16', value: 'l-010' },
+    { id: 'l-011', name: 'Advanced', color: '#F97316', value: 'l-011' },
+    { id: 'l-012', name: 'Performance', color: '#EF4444', value: 'l-012' }
+  ];
 
   ngOnInit(): void {
-    this.labelService.getLabels().subscribe((data: any) => {
-      this.availableLabels = data;
-    });
+    this.availableLabels = this.predefinedLabels;
   }
 
   get task(): Task {
@@ -66,19 +84,16 @@ export class Task implements OnInit {
     }
   }
 
-  getLabelColor(labelValue: string): string {
-    const labelOption = this.availableLabels.find(option => option.value === labelValue);
-    return labelOption?.color || '#6c757d';
+  getLabelColor(label: Label): string {
+    return label?.color || '#6c757d';
   }
 
-  getLabelIcon(labelValue: string): string {
-    const labelOption = this.availableLabels.find(option => option.value === labelValue);
-    return labelOption?.icon || 'pi pi-tag';
+  getLabelIcon(label: Label): string {
+    return 'pi pi-tag';
   }
 
-  getLabelDisplayName(labelValue: string): string {
-    const labelOption = this.availableLabels.find(option => option.value === labelValue);
-    return labelOption?.label || labelValue;
+  getLabelDisplayName(label: Label): string {
+    return label?.name || '';
   }
 
   addLink() {

@@ -18,10 +18,13 @@
         <div class="flex flex-column align-items-start justify-content-start h-full text-left w-full">
           <!-- <div>level</div> -->
           <span class="text-sm m-0 p-0">{{ task.name.length > 30 ? (task.name.slice(0, 30).trim() + '...') : task.name }}</span>
-          <!-- <div class="label-area flex">
-      <div class="label">label 1</div>
-      <div class="label">label 2</div>
-    </div> -->
+          @if (task.labels && task.labels.length > 0) {
+          <div class="label-area flex flex-wrap gap-1 mt-2">
+            @for (label of task.labels; track label.id) {
+            <div class="label text-xs px-2 py-1 border-round-sm" [ngStyle]="{'background-color': label.color, 'color': 'white'}">{{ label.name }}</div>
+            }
+          </div>
+          }
         </div>
 
         <i class="dot-icon pi pi-trash text-primary-400 cursor-pointer" style="font-size: 1rem; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%)" (click)="deleteTask($event,task.id)"></i>

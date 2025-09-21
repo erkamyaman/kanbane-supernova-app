@@ -15,7 +15,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Columns } from '../../columns/columns';
 import { Topbar } from '../../../layout/topbar/topbar';
 
-export type Task = { id: string; name: string; columnId?: string; details?: any[] };
+export type Label = { id: string; name: string; color: string };
+export type Task = { id: string; name: string; columnId?: string; details?: any[]; labels?: Label[] };
 export type Column = { id: string; title: string; icon: string; iconColor: string; };
 
 @Component({
@@ -241,4 +242,5 @@ export class KanbanBody {
     const func = Topbar.func(number1, number2)
     console.log(func)
   }
+
 }
