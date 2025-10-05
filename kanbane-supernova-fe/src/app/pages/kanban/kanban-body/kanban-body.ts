@@ -66,6 +66,12 @@ export class KanbanBody {
 
   ngOnInit() {
     this.getColumns()
+    this.kanbanService.taskCreatedSubject.subscribe((val) => {
+      if (val) {
+        this.getTasks();
+        this.kanbanService.taskCreatedSubject.next(false)
+      }
+    })
   }
 
   getTasks() {

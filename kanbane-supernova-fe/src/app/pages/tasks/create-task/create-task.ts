@@ -45,6 +45,7 @@ export class CreateTask {
     this.kanbanService.createTask(task).subscribe({
       next: (data) => {
         console.log(data);
+        this.kanbanService.taskCreatedSubject.next(true)
         this.ref.close({ FormData: this.form.getRawValue() });
       }
     })

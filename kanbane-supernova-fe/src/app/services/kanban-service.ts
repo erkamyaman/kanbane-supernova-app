@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -8,6 +8,10 @@ import { environment } from '../../environments/environment';
 })
 export class KanbanService {
   constructor(private http: HttpClient) { }
+
+  taskCreatedSubject = new BehaviorSubject<boolean>(false);
+  taskCreated$ = this.taskCreatedSubject.asObservable();
+
   getTasks(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/tasks`);
   }
